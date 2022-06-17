@@ -7,36 +7,38 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
-import {getDocs, collection} from "firebase/firestore";
-import { useEffect } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
-
-function createData(name, calories, fat) {
-  return { name, calories, fat };
+function createData(name, link, desc) {
+  return { name, link, desc };
 }
 
-const rows = [];
-async function loop() {
-  const querySnapshot = await getDocs(collection(db, "table"));
+export default function BasicTable() {
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    loop();
+  }, []);
+
+  let temp = [];
+
+  async function loop() {
+    const querySnapshot = await getDocs(collection(db, "table"));
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.data());
       console.log(doc.data().Name);
       console.log(doc.data().Description[0]);
-      rows.push(createData(doc.data().Name,doc.data().Link,doc.data().Description[0]));
+      temp.push(
+        createData(doc.data().Name, doc.data().Link, doc.data().Description[0])
+      );
     });
+    setRows(temp);
+    console.log("hi");
+    console.log(rows);
   }
 
-  function printRow() {
-    console.log(rows)
-  }
-
-export default function BasicTable() {
-  useEffect(() => {
-  loop();
-  printRow()
-  },[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -60,8 +62,8 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="center">{row.calories}</TableCell>
-              <TableCell align="center">{row.fat}</TableCell>
+              <TableCell align="center">{row.link}</TableCell>
+              <TableCell align="center">{row.desc}</TableCell>
             </TableRow>
           ))}
         </TableBody>
