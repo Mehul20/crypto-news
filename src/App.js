@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Table from "./components/Table";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Add from "./components/Add"
 
 export const UserContext = createContext();
 
@@ -17,7 +18,7 @@ function App() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-
+          <Route path="add" element={<Add />} />
           <Route
             path=""
             element={
@@ -44,6 +45,7 @@ function App() {
               </div>
             }
           />
+
         </Routes>
       </Router>
     </UserContext.Provider>
