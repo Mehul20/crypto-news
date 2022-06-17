@@ -6,20 +6,37 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { db } from "../firebase-config";
+import {getDocs, collection} from "firebase/firestore";
+import { useEffect } from "react";
+
 
 function createData(name, calories, fat) {
   return { name, calories, fat };
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Eclair", 262, 16.0),
-  createData("Cupcake", 305, 3.7),
-  createData("Gingerbread", 356, 16.0),
-];
+const rows = [];
+async function loop() {
+  const querySnapshot = await getDocs(collection(db, "table"));
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.data());
+      console.log(doc.data().Name);
+      console.log(doc.data().Description[0]);
+      rows.push(createData(doc.data().Name,doc.data().Link,doc.data().Description[0]));
+    });
+  }
+
+  function printRow() {
+    console.log(rows)
+  }
 
 export default function BasicTable() {
+  useEffect(() => {
+  loop();
+  printRow()
+  },[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
