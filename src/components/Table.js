@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 function createData(name, link, desc) {
   return { name, link, desc };
@@ -18,7 +19,7 @@ export default function BasicTable() {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     loop();
-  }, []);
+  },);
 
   let temp = [];
 
@@ -26,16 +27,11 @@ export default function BasicTable() {
     const querySnapshot = await getDocs(collection(db, "table"));
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.data());
-      console.log(doc.data().Name);
-      console.log(doc.data().Description[0]);
       temp.push(
         createData(doc.data().Name, doc.data().Link, doc.data().Description[0])
       );
     });
     setRows(temp);
-    console.log("hi");
     console.log(rows);
   }
 
@@ -62,7 +58,17 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="center">{row.link}</TableCell>
+              <TableCell align="center"><div style={{
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+}}>
+   
+    <span>{row.link}</span>
+    <ArrowCircleUpIcon />
+</div>  
+              
+              </TableCell>
               <TableCell align="center">{row.desc}</TableCell>
             </TableRow>
           ))}
