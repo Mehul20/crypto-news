@@ -28,7 +28,7 @@ export default function BasicTable() {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
-        createData(doc.data().Name, doc.data().Link, doc.data().Description[0])
+        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description[0])
       );
     });
     setRows(temp);
@@ -61,7 +61,6 @@ export default function BasicTable() {
               <TableCell align="center"><div style={{
     display: 'flex',
     alignItems: 'center',
-    flexWrap: 'wrap',
 }}>
    
     <span>{row.link}</span>
