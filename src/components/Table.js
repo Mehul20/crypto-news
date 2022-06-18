@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
+import { green } from '@mui/material/colors';
 import {
   doc,
   getDocs,
@@ -30,7 +31,16 @@ export default function BasicTable() {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     loop();
+    rendering();
   }, []);
+
+  const [upvotesData, setUpvotesData] = useState([]);
+
+  async function rendering() {
+    const docRef = doc(db, "users",email);
+    const docSnap = await getDoc(docRef);
+    setUpvotesData(docSnap.data().Upvotes);
+  }
 
   let temp = [];
 
@@ -54,7 +64,6 @@ export default function BasicTable() {
       const docRef = doc(db, "users",email);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data().Upvotes;
-      console.log(data);
       if (!data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
@@ -112,12 +121,23 @@ export default function BasicTable() {
                     }}
                   >
                     <span>{row.link}</span>
-
-                    <ArrowCircleUpIcon
+                    <div> 
+                      {
+                    
+                    upvotesData.includes(row.name) ? (
+                      <ArrowCircleUpIcon style={{ color: green[500] }} />
+                      ) :
+                    (
+                      <ArrowCircleUpIcon
                       onClick={() => {
                         upvoteHandler(row.name);
                       }}
                     />
+                    )
+}
+                    </div>
+                    
+                    
                   </div>
                 </TableCell>
                 <TableCell align="center">{row.desc}</TableCell>
