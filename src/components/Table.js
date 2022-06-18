@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
+import { useNavigate } from "react-router-dom";
 import {
   doc,
   getDocs,
@@ -60,6 +61,17 @@ export default function BasicTable() {
     });
   };
 
+  const navigate = useNavigate();
+
+  const gotoAdd = async () => {
+    try {
+      console.log("Added");
+      navigate("/add");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -106,7 +118,7 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <button></button>
+      <button onClick={gotoAdd}> Add an article </button>
     </div>
   );
 }
