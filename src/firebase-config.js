@@ -6,13 +6,13 @@ import "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCCrdqgxDljhBpW0F0bdnctIu-Y2C_I3RE",
-  authDomain: "crypto-news-e2d1b.firebaseapp.com",
-  projectId: "crypto-news-e2d1b",
-  storageBucket: "crypto-news-e2d1b.appspot.com",
-  messagingSenderId: "887086736105",
-  appId: "1:887086736105:web:640b503940ebdd0d1ec678",
-  measurementId: "G-SMJRW2ZY6W",
+  apiKey: "AIzaSyC5CfeMfxyPrlJWEZYQqMSA5okfkOo8q1M",
+  authDomain: "crypto-news2.firebaseapp.com",
+  projectId: "crypto-news2",
+  storageBucket: "crypto-news2.appspot.com",
+  messagingSenderId: "958285231795",
+  appId: "1:958285231795:web:5d7e426c8679d4826be2c6",
+  measurementId: "G-CM6GJJ5HGE",
 };
 
 const app = firebase.initializeApp(firebaseConfig);

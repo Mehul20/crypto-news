@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,23 +7,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
-import {
-  doc,
-  getDocs,
-  collection,
-  increment,
-  updateDoc,
-} from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import { UserContext } from "../App";
 
 function createData(name, link, desc) {
   return { name, link, desc };
 }
 
-export default function BasicTable() {
-  const { email, setEmail } = useContext(UserContext);
+export default function TableWithoutLogin() {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     loop();
@@ -47,22 +39,6 @@ export default function BasicTable() {
     temp = [];
     console.log(rows);
   }
-
-  const upvoteHandler = async (nameOfArticle) => {
-    await updateDoc(doc(db, "table", nameOfArticle), {
-      Upvotes: increment(1),
-    });
-    loop();
-    console.log(email);
-
-    // DocumentSnapshot ds = await collection.document(id).get();
-    // List counts = ds.data['counts'];
-    // counts.add(count);
-
-    // await updateDoc(doc(db, "users", nameOfArticle, email), {
-    //   Upvotes: increment(1),
-    // });
-  };
 
   return (
     <TableContainer component={Paper}>
@@ -95,12 +71,7 @@ export default function BasicTable() {
                   }}
                 >
                   <span>{row.link}</span>
-
-                  <ArrowCircleUpIcon
-                    onClick={() => {
-                      upvoteHandler(row.name);
-                    }}
-                  />
+                  <ArrowCircleUpIcon />
                 </div>
               </TableCell>
               <TableCell align="center">{row.desc}</TableCell>
