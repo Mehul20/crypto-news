@@ -15,6 +15,7 @@ import {
   increment,
   updateDoc,
   arrayUnion,
+  getDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
@@ -47,18 +48,25 @@ export default function BasicTable() {
     });
     setRows(temp);
     temp = [];
-    console.log(rows);
   }
 
   const upvoteHandler = async (nameOfArticle) => {
-    await updateDoc(doc(db, "table", nameOfArticle), {
-      Upvotes: increment(1),
-    });
-    loop();
-    console.log(email);
-    await updateDoc(doc(db, "users", email), {
-      Upvotes: arrayUnion(nameOfArticle),
-    });
+      const docRef = doc(db, "users",email);
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.data().Upvotes;
+      console.log(data);
+      if (!data.includes(nameOfArticle)) {
+      await updateDoc(doc(db, "table", nameOfArticle), {
+        Upvotes: increment(1),
+      });
+      loop();
+      console.log(email);
+      await updateDoc(doc(db, "users", email), {
+        Upvotes: arrayUnion(nameOfArticle),
+      });
+    } else {
+      console.log("exists");
+    }
   };
 
   const navigate = useNavigate();
