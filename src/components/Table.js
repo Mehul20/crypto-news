@@ -13,6 +13,7 @@ import {
   collection,
   increment,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
@@ -54,60 +55,58 @@ export default function BasicTable() {
     });
     loop();
     console.log(email);
-
-    // DocumentSnapshot ds = await collection.document(id).get();
-    // List counts = ds.data['counts'];
-    // counts.add(count);
-
-    // await updateDoc(doc(db, "users", nameOfArticle, email), {
-    //   Upvotes: increment(1),
-    // });
+    await updateDoc(doc(db, "users", email), {
+      Upvotes: arrayUnion(nameOfArticle),
+    });
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell style={{ width: "50%" }}>Article Name</TableCell>
-            <TableCell style={{ width: "15%" }} align="center">
-              Upvotes
-            </TableCell>
-            <TableCell style={{ width: "35%" }} align="center">
-              Topic
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
+    <div>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ width: "50%" }}>Article Name</TableCell>
+              <TableCell style={{ width: "15%" }} align="center">
+                Upvotes
               </TableCell>
-              <TableCell align="center">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>{row.link}</span>
-
-                  <ArrowCircleUpIcon
-                    onClick={() => {
-                      upvoteHandler(row.name);
-                    }}
-                  />
-                </div>
+              <TableCell style={{ width: "35%" }} align="center">
+                Topic
               </TableCell>
-              <TableCell align="center">{row.desc}</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="center">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span>{row.link}</span>
+
+                    <ArrowCircleUpIcon
+                      onClick={() => {
+                        upvoteHandler(row.name);
+                      }}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell align="center">{row.desc}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <button></button>
+    </div>
   );
 }
