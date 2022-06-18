@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,7 +9,8 @@ import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import UserContext from "../App";
 
 function createData(name, link, desc) {
   return { name, link, desc };
@@ -19,7 +20,7 @@ export default function BasicTable() {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     loop();
-  },);
+  });
 
   let temp = [];
 
@@ -28,12 +29,19 @@ export default function BasicTable() {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
-        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description[0])
+        createData(
+          doc.data().Name,
+          doc.data().Upvotes,
+          doc.data().Description[0]
+        )
       );
     });
     setRows(temp);
     console.log(rows);
   }
+
+  const { email, setEmail } = useContext(UserContext);
+  const upvoteHandler = () => {};
 
   return (
     <TableContainer component={Paper}>
@@ -58,15 +66,16 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="center"><div style={{
-    display: 'flex',
-    alignItems: 'center',
-}}>
-   
-    <span>{row.link}</span>
-    <ArrowCircleUpIcon />
-</div>  
-              
+              <TableCell align="center">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>{row.link}</span>
+                  <ArrowCircleUpIcon onClick={upvoteHandler} />
+                </div>
               </TableCell>
               <TableCell align="center">{row.desc}</TableCell>
             </TableRow>
