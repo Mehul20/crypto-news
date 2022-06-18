@@ -10,12 +10,13 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { db } from "../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
-// import { ProfileContext } from "../App";
+import { UserContext } from "../App";
 
 function Signup() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerFullName, setRegisterFullName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const { email, setEmail } = useContext(UserContext);
   const navigate = useNavigate();
   // const { profileType, setProfileType } = useContext(ProfileContext);
 
@@ -53,6 +54,7 @@ function Signup() {
           placeholder="Email..."
           onChange={(event) => {
             setRegisterEmail(event.target.value);
+            setEmail(event.target.value);
           }}
         />
         <input

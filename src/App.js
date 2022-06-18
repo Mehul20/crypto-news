@@ -6,7 +6,8 @@ import Navbar from "./components/Navbar";
 import Table from "./components/Table";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Add from "./components/Add"
+import Add from "./components/Add";
+import TableWithoutLogin from "./components/TableWithouLogin";
 
 export const UserContext = createContext();
 
@@ -27,7 +28,7 @@ function App() {
                   <Navbar />
                 </div>
                 <div className="news-table">
-                  <Table />
+                  <TableWithoutLogin />
                 </div>
               </div>
             }
@@ -45,7 +46,6 @@ function App() {
               </div>
             }
           />
-
         </Routes>
       </Router>
     </UserContext.Provider>
