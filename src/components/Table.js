@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green } from '@mui/material/colors';
+import { green, black, yellow } from '@mui/material/colors';
 import {
   doc,
   getDocs,
@@ -22,9 +22,12 @@ import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 
+
 function createData(name, link, desc) {
   return { name, link, desc };
 }
+
+let testvar = new Array(1000).fill(yellow[500]);
 
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
@@ -60,10 +63,14 @@ export default function BasicTable() {
     temp = [];
   }
 
-  const upvoteHandler = async (nameOfArticle) => {
+  
+
+
+  const upvoteHandler = async (nameOfArticle, index) => {
       const docRef = doc(db, "users",email);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data().Upvotes;
+      testvar[index] = green[500];
       if (!data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
@@ -74,7 +81,7 @@ export default function BasicTable() {
         Upvotes: arrayUnion(nameOfArticle),
       });
     } else {
-      console.log("exists");
+      console.log("exists");  
     }
   };
 
@@ -105,7 +112,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -130,8 +137,11 @@ export default function BasicTable() {
                     (
                       <ArrowCircleUpIcon
                       onClick={() => {
-                        upvoteHandler(row.name);
+                        upvoteHandler(row.name, index);
+                        console.log(index);
                       }}
+                      style={{ color: testvar[index] }}
+                     
                     />
                     )
 }
