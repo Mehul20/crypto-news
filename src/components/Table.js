@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green } from '@mui/material/colors';
+import { green } from "@mui/material/colors";
 import {
   doc,
   getDocs,
@@ -29,6 +29,8 @@ function createData(name, link, desc) {
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
+  const [uprows, setUpRows] = useState(0);
+
   useEffect(() => {
     loop();
     rendering();
@@ -36,8 +38,45 @@ export default function BasicTable() {
 
   const [upvotesData, setUpvotesData] = useState([]);
 
+  const _handleRowHover = (hoveredRow) => setUpRows({ hoveredRow });
+
+  const _renderTableRow = ({ row, hovered }) => {
+    return (
+      <TableRow
+        key={row.name}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      >
+        <TableCell component="th" scope="row">
+          {row.name}
+        </TableCell>
+        <TableCell align="center">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span>{row.link}</span>
+            <div>
+              {upvotesData.includes(row.name) || uprows ? (
+                <ArrowCircleUpIcon style={{ color: green[500] }} />
+              ) : (
+                <ArrowCircleUpIcon
+                  onClick={() => {
+                    upvoteHandler(row.name);
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        </TableCell>
+        <TableCell align="center">{row.desc}</TableCell>
+      </TableRow>
+    );
+  };
+
   async function rendering() {
-    const docRef = doc(db, "users",email);
+    const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
     setUpvotesData(docSnap.data().Upvotes);
   }
@@ -61,10 +100,11 @@ export default function BasicTable() {
   }
 
   const upvoteHandler = async (nameOfArticle) => {
-      const docRef = doc(db, "users",email);
-      const docSnap = await getDoc(docRef);
-      const data = docSnap.data().Upvotes;
-      if (!data.includes(nameOfArticle)) {
+    _handleRowHover();
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data().Upvotes;
+    if (!data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
       });
@@ -105,44 +145,42 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span>{row.link}</span>
-                    <div> 
-                      {
-                    
-                    upvotesData.includes(row.name) ? (
-                      <ArrowCircleUpIcon style={{ color: green[500] }} />
-                      ) :
-                    (
-                      <ArrowCircleUpIcon
-                      onClick={() => {
-                        upvoteHandler(row.name);
-                      }}
-                    />
-                    )
-}
-                    </div>
-                    
-                    
-                  </div>
-                </TableCell>
-                <TableCell align="center">{row.desc}</TableCell>
-              </TableRow>
-            ))}
+            {rows.map((row, index) =>
+              // <TableRow
+              //   key={row.name}
+              //   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              // >
+              //   <TableCell component="th" scope="row">
+              //     {row.name}
+              //   </TableCell>
+              //   <TableCell align="center">
+              //     <div
+              //       style={{
+              //         display: "flex",
+              //         alignItems: "center",
+              //       }}
+              //     >
+              //       <span>{row.link}</span>
+              //       <div>
+              //         {upvotesData.includes(row.name) ? (
+              //           <ArrowCircleUpIcon style={{ color: green[500] }} />
+              //         ) : (
+              //           <ArrowCircleUpIcon
+              //             onClick={() => {
+              //               upvoteHandler(row.name);
+              //             }}
+              //           />
+              //         )}
+              //       </div>
+              //     </div>
+              //   </TableCell>
+              //   <TableCell align="center">{row.desc}</TableCell>
+              // </TableRow>
+              _renderTableRow({
+                row,
+                hovered: index === uprows,
+              })
+            )}
           </TableBody>
         </Table>
       </TableContainer>
