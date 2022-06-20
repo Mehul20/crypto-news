@@ -10,6 +10,7 @@ import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { green, black, yellow } from "@mui/material/colors";
+
 import {
   doc,
   getDocs,
@@ -22,11 +23,12 @@ import {
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
-import TextField from "@mui/material/TextField";
 
 function createData(name, link, desc) {
   return { name, link, desc };
 }
+
+
 
 let testvar = new Array(1000).fill(yellow[500]);
 
@@ -58,8 +60,11 @@ export default function BasicTable() {
         createData(doc.data().Name, doc.data().Upvotes, doc.data().Description)
       );
     });
+    temp.sort((a, b) => {
+      return b.link - a.link;
+    });
     setRows(temp);
-    temp = [];
+    temp = []; 
   }
 
   const upvoteHandler = async (nameOfArticle, index) => {
@@ -111,6 +116,7 @@ export default function BasicTable() {
               </TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {rows.map((row, index) => (
               <TableRow
