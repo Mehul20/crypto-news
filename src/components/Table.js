@@ -6,9 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green, black, yellow } from '@mui/material/colors';
+import { green, black, yellow } from "@mui/material/colors";
 import {
   doc,
   getDocs,
@@ -21,7 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
-
+import TextField from "@mui/material/TextField";
 
 function createData(name, link, desc) {
   return { name, link, desc };
@@ -32,6 +33,8 @@ let testvar = new Array(1000).fill(yellow[500]);
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
+  const [searched, setSearched] = useState("");
+
   useEffect(() => {
     loop();
     rendering();
@@ -40,7 +43,7 @@ export default function BasicTable() {
   const [upvotesData, setUpvotesData] = useState([]);
 
   async function rendering() {
-    const docRef = doc(db, "users",email);
+    const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
     setUpvotesData(docSnap.data().Upvotes);
   }
@@ -52,26 +55,19 @@ export default function BasicTable() {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
-        createData(
-          doc.data().Name,
-          doc.data().Upvotes,
-          doc.data().Description[0]
-        )
+        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description)
       );
     });
     setRows(temp);
     temp = [];
   }
 
-  
-
-
   const upvoteHandler = async (nameOfArticle, index) => {
-      const docRef = doc(db, "users",email);
-      const docSnap = await getDoc(docRef);
-      const data = docSnap.data().Upvotes;
-      testvar[index] = green[500];
-      if (!data.includes(nameOfArticle)) {
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data().Upvotes;
+    testvar[index] = green[500];
+    if (!data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
       });
@@ -81,8 +77,12 @@ export default function BasicTable() {
         Upvotes: arrayUnion(nameOfArticle),
       });
     } else {
-      console.log("exists");  
+      console.log("exists");
     }
+  };
+
+  const tagClickHandler = () => {
+    console.log("tagClickHandler");
   };
 
   const navigate = useNavigate();
@@ -128,29 +128,32 @@ export default function BasicTable() {
                     }}
                   >
                     <span>{row.link}</span>
-                    <div> 
-                      {
-                    
-                    upvotesData.includes(row.name) ? (
-                      <ArrowCircleUpIcon style={{ color: green[500] }} />
-                      ) :
-                    (
-                      <ArrowCircleUpIcon
-                      onClick={() => {
-                        upvoteHandler(row.name, index);
-                        console.log(index);
-                      }}
-                      style={{ color: testvar[index] }}
-                     
-                    />
-                    )
-}
+                    <div>
+                      {upvotesData.includes(row.name) ? (
+                        <ArrowCircleUpIcon style={{ color: green[500] }} />
+                      ) : (
+                        <ArrowCircleUpIcon
+                          onClick={() => {
+                            upvoteHandler(row.name, index);
+                            console.log(index);
+                          }}
+                          style={{ color: testvar[index] }}
+                        />
+                      )}
                     </div>
-                    
-                    
                   </div>
                 </TableCell>
-                <TableCell align="center">{row.desc}</TableCell>
+                <TableCell align="center">
+                  {row.desc.map((data, index) => {
+                    return (
+                      <Chip
+                        label={data}
+                        variant="outlined"
+                        onClick={tagClickHandler}
+                      />
+                    );
+                  })}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
