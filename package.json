@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.8.3",
     "firebase-auth": "^0.1.2",
+    "multiselect-react-dropdown": "^2.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
