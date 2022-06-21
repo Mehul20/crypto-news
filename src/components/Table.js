@@ -71,7 +71,8 @@ export default function BasicTable() {
     await updateDoc(doc(db, "table", nameOfArticle), {
       Color: green[500],
     });
-    if (!data.includes(nameOfArticle)) {
+
+    if (data == null || !data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
       });
@@ -134,7 +135,7 @@ export default function BasicTable() {
                   >
                     <span>{row.link}</span>
                     <div>
-                      {upvotesData.includes(row.name) ? (
+                      {upvotesData!=null && upvotesData.includes(row.name) ? (
                         <ArrowCircleUpIcon style={{ color: green[500] }} />
                       ) : (
                         <ArrowCircleUpIcon
