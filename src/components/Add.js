@@ -39,7 +39,6 @@ function Add() {
         Link: registerLinking,
         Description: tempTags,
         Upvotes: 0,
-        Color: yellow[500]
       });
       navigate("/homeWithLogIn");
     } catch (error) {
