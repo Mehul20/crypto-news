@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green } from "@mui/material/colors";
+import { green, purple } from "@mui/material/colors";
 
 import {
   doc,
@@ -25,10 +25,8 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 
 function createData(name, link, desc) {
-  return { name, link, desc};
+  return { name, link, desc };
 }
-
-
 
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
@@ -61,7 +59,7 @@ export default function BasicTable() {
       return b.link - a.link;
     });
     setRows(temp);
-    temp = []; 
+    temp = [];
   }
 
   const upvoteHandler = async (nameOfArticle) => {
@@ -69,14 +67,15 @@ export default function BasicTable() {
     const docSnap = await getDoc(docRef);
     const data = docSnap.data().Upvotes;
     if (data == null || !data.includes(nameOfArticle)) {
+      await updateDoc(doc(db, "users", email), {
+        Upvotes: arrayUnion(nameOfArticle),
+      });
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
       });
       loop();
+      rendering();
       console.log(email);
-      await updateDoc(doc(db, "users", email), {
-        Upvotes: arrayUnion(nameOfArticle),
-      });
     } else {
       console.log("exists");
     }
@@ -131,7 +130,7 @@ export default function BasicTable() {
                   >
                     <span>{row.link}</span>
                     <div>
-                      {upvotesData!=null && upvotesData.includes(row.name) ? (
+                      {upvotesData != null && upvotesData.includes(row.name) ? (
                         <ArrowCircleUpIcon style={{ color: green[500] }} />
                       ) : (
                         <ArrowCircleUpIcon
