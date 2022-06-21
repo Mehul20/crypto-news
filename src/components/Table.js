@@ -23,16 +23,33 @@ import {
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
+import Multiselect from "multiselect-react-dropdown";
 
 function createData(name, link, desc) {
-  return { name, link, desc};
+  return { name, link, desc };
 }
-
-
 
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
+  const multiselectRef = React.createRef();
+
+  const [options, setOptions] = useState([
+    { name: "Defi" },
+    { name: "DAO" },
+    { name: "NFT" },
+    { name: "Bitcoin" },
+    { name: "Conferences" },
+    { name: "Cryptocurrencies" },
+    { name: "Ethereum" },
+    { name: "Layer 2" },
+    { name: "Web3 Dev" },
+    { name: "Web3 Educational Resources" },
+    { name: "Web3 VC" },
+    { name: "Trading" },
+    { name: "Smart Contracts" },
+    { name: "Stablecoins" },
+  ]);
 
   useEffect(() => {
     loop();
@@ -60,8 +77,9 @@ export default function BasicTable() {
     temp.sort((a, b) => {
       return b.link - a.link;
     });
+
     setRows(temp);
-    temp = []; 
+    temp = [];
   }
 
   const upvoteHandler = async (nameOfArticle) => {
@@ -99,6 +117,15 @@ export default function BasicTable() {
 
   return (
     <div>
+      <Multiselect
+        options={options} // Options to display in the dropdown
+        onSelect={onSelect} // Function will trigger on select event
+        onRemove={onRemove} // Function will trigger on remove event
+        displayValue="name"
+        ref={multiselectRef}
+        // Property name to display in the dropdown options
+      />
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -131,7 +158,7 @@ export default function BasicTable() {
                   >
                     <span>{row.link}</span>
                     <div>
-                      {upvotesData!=null && upvotesData.includes(row.name) ? (
+                      {upvotesData != null && upvotesData.includes(row.name) ? (
                         <ArrowCircleUpIcon style={{ color: green[500] }} />
                       ) : (
                         <ArrowCircleUpIcon
