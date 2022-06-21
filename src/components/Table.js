@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green, black, yellow } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 
 import {
   doc,
@@ -24,18 +24,15 @@ import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 
-function createData(name, link, desc) {
-  return { name, link, desc };
+function createData(name, link, desc, color) {
+  return { name, link, desc, color};
 }
 
 
 
-let testvar = new Array(1000).fill(yellow[500]);
-
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
-  const [searched, setSearched] = useState("");
 
   useEffect(() => {
     loop();
@@ -57,7 +54,7 @@ export default function BasicTable() {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
-        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description)
+        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description, doc.data().Color)
       );
     });
     temp.sort((a, b) => {
@@ -67,11 +64,13 @@ export default function BasicTable() {
     temp = []; 
   }
 
-  const upvoteHandler = async (nameOfArticle, index) => {
+  const upvoteHandler = async (nameOfArticle) => {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data().Upvotes;
-    testvar[index] = green[500];
+    await updateDoc(doc(db, "table", nameOfArticle), {
+      Color: green[500],
+    });
     if (!data.includes(nameOfArticle)) {
       await updateDoc(doc(db, "table", nameOfArticle), {
         Upvotes: increment(1),
@@ -118,7 +117,7 @@ export default function BasicTable() {
           </TableHead>
 
           <TableBody>
-            {rows.map((row, index) => (
+            {rows.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -140,10 +139,10 @@ export default function BasicTable() {
                       ) : (
                         <ArrowCircleUpIcon
                           onClick={() => {
-                            upvoteHandler(row.name, index);
-                            console.log(index);
+                            upvoteHandler(row.name);
+                            console.log(row.color);
                           }}
-                          style={{ color: testvar[index] }}
+                          style={{ color: (row.color) }}
                         />
                       )}
                     </div>

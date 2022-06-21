@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
+import { yellow } from "@mui/material/colors";
 
 function Add() {
   // Add a new document in collection "cities"
@@ -38,6 +39,7 @@ function Add() {
         Link: registerLinking,
         Description: tempTags,
         Upvotes: 0,
+        Color: yellow[500]
       });
       navigate("/homeWithLogIn");
     } catch (error) {
