@@ -20,8 +20,20 @@ function Add() {
   const [selectedTags, setSelectedTags] = useState([]);
   const multiselectRef = React.createRef();
   const [options, setOptions] = useState([
-    { name: "Option 1️⃣" },
-    { name: "Option 2️⃣" },
+    { name: "Defi" },
+    { name: "DAO" },
+    { name: "NFT" },
+    { name: "Bitcoin" },
+    { name: "Conferences" },
+    { name: "Cryptocurrencies" },
+    { name: "Ethereum" },
+    { name: "Layer 2" },
+    { name: "Web3 Dev" },
+    { name: "Web3 Educational Resources" },
+    { name: "Web3 VC" },
+    { name: "Trading" },
+    { name: "Smart Contracts" },
+    { name: "Stablecoins" },
   ]);
   const navigate = useNavigate();
 
