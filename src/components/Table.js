@@ -192,10 +192,12 @@ export default function BasicTable() {
                       {upvotesData != null && upvotesData.includes(row.name) ? (
                         <ArrowCircleUpIcon style={{ color: green[500] }} />
                       ) : (
+
                         <ArrowCircleUpIcon
                           onClick={() => {
                             upvoteHandler(row.name);
                           }}
+                          sx = {{ "&:hover": { color:green[500] } }}
                         />
                       )}
                     </div>
