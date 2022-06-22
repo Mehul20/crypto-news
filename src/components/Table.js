@@ -96,6 +96,7 @@ export default function BasicTable() {
         temp.push(
           createData(
             doc.data().Name,
+            doc.data().Link,
             doc.data().Upvotes,
             doc.data().Description
           )
