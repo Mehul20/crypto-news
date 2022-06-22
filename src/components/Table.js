@@ -25,8 +25,8 @@ import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 
-function createData(name, link, desc) {
-  return { name, link, desc };
+function createData(name, linking, link, desc) {
+  return { name, linking, link, desc };
 }
 
 export default function BasicTable() {
@@ -73,7 +73,12 @@ export default function BasicTable() {
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
-        createData(doc.data().Name, doc.data().Upvotes, doc.data().Description)
+        createData(
+          doc.data().Name,
+          doc.data().Link,
+          doc.data().Upvotes,
+          doc.data().Description
+        )
       );
     });
     temp.sort((a, b) => {
@@ -178,7 +183,9 @@ export default function BasicTable() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  <a href={row.linking} target="_blank">
+                    {row.name}
+                  </a>
                 </TableCell>
                 <TableCell align="center">
                   <div
@@ -192,12 +199,11 @@ export default function BasicTable() {
                       {upvotesData != null && upvotesData.includes(row.name) ? (
                         <ArrowCircleUpIcon style={{ color: green[500] }} />
                       ) : (
-
                         <ArrowCircleUpIcon
                           onClick={() => {
                             upvoteHandler(row.name);
                           }}
-                          sx = {{ "&:hover": { color:green[500] } }}
+                          sx={{ "&:hover": { color: green[500] } }}
                         />
                       )}
                     </div>
