@@ -84,26 +84,26 @@ export default function BasicTable() {
   }
 
   async function tagLoop(items) {
-        const querySnapshot = await getDocs(collection(db, "table"));
-        console.log(querySnapshot);
-        querySnapshot.forEach((doc) => {
-          if (doc.data().Description.includes(items[0].name)) {
-            temp.push(
-              createData(
-                doc.data().Name,
-                doc.data().Upvotes,
-                doc.data().Description
-              )
-            );
-          }
-        });
-        temp.sort((a, b) => {
-          return b.link - a.link;
-        });
-    
-        setRows(temp);
-        temp = [];
-      }
+    const querySnapshot = await getDocs(collection(db, "table"));
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+      if (doc.data().Description.includes(items[0].name)) {
+        temp.push(
+          createData(
+            doc.data().Name,
+            doc.data().Upvotes,
+            doc.data().Description
+          )
+        );
+      }
+    });
+    temp.sort((a, b) => {
+      return b.link - a.link;
+    });
+
+    setRows(temp);
+    temp = [];
+  }
 
   const upvoteHandler = async (nameOfArticle) => {
     const docRef = doc(db, "users", email);
@@ -124,10 +124,6 @@ export default function BasicTable() {
     }
   };
 
-  const tagClickHandler = () => {
-    console.log("tagClickHandler");
-  };
-
   const navigate = useNavigate();
 
   const onSelect = () => {
@@ -141,7 +137,6 @@ export default function BasicTable() {
     loop();
   };
 
-
   const gotoAdd = async () => {
     try {
       console.log("Added");
@@ -153,7 +148,7 @@ export default function BasicTable() {
 
   return (
     <div>
-        <Multiselect
+      <Multiselect
         options={options} // Options to display in the dropdown
         onSelect={onSelect} // Function will trigger on select event
         onRemove={onRemove} // Function will trigger on remove event
@@ -208,13 +203,7 @@ export default function BasicTable() {
                 </TableCell>
                 <TableCell align="center">
                   {row.desc.map((data, index) => {
-                    return (
-                      <Chip
-                        label={data}
-                        variant="outlined"
-                        onClick={tagClickHandler}
-                      />
-                    );
+                    return <Chip label={data} variant="outlined" />;
                   })}
                 </TableCell>
               </TableRow>
