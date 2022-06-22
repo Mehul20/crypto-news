@@ -42,6 +42,7 @@ function Login() {
         />
         <input
           placeholder="Password..."
+          type="password"
           onChange={(event) => {
             setLoginPassword(event.target.value);
           }}
