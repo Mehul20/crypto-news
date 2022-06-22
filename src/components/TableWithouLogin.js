@@ -23,6 +23,10 @@ export default function TableWithoutLogin() {
 
   let temp = [];
 
+  const loginAlertHandler = () => {
+    alert("Please login to upvote or add articles");
+  };
+
   async function loop() {
     const querySnapshot = await getDocs(collection(db, "table"));
     console.log(querySnapshot);
@@ -71,7 +75,7 @@ export default function TableWithoutLogin() {
                   }}
                 >
                   <span>{row.link}</span>
-                  <ArrowCircleUpIcon />
+                  <ArrowCircleUpIcon onClick={loginAlertHandler} />
                 </div>
               </TableCell>
               <TableCell align="center">{row.desc}</TableCell>
