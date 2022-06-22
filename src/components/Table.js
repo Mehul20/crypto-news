@@ -33,6 +33,7 @@ export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
   const multiselectRef = React.createRef();
+  const [tagged, setTagged] = useState(false);
 
   const [options, setOptions] = useState([
     { name: "Defi" },
@@ -82,6 +83,27 @@ export default function BasicTable() {
     temp = [];
   }
 
+  async function tagLoop(items) {
+    const querySnapshot = await getDocs(collection(db, "table"));
+    console.log(querySnapshot);
+    querySnapshot.forEach((doc) => {
+      if (doc.data().Description.includes(items[0].name)) {
+        temp.push(
+          createData(
+            doc.data().Name,
+            doc.data().Upvotes,
+            doc.data().Description
+          )
+        );
+      }
+    });
+    temp.sort((a, b) => {
+      return b.link - a.link;
+    });
+
+    setRows(temp);
+    temp = [];
+  }
   const upvoteHandler = async (nameOfArticle) => {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
@@ -106,6 +128,17 @@ export default function BasicTable() {
 
   const navigate = useNavigate();
 
+  const onSelect = () => {
+    const items = multiselectRef.current.getSelectedItems();
+    console.log(items);
+    tagLoop(items);
+  };
+  const onRemove = () => {
+    const items = multiselectRef.current.getSelectedItems();
+    console.log(items);
+    loop();
+  };
+
   const gotoAdd = async () => {
     try {
       console.log("Added");
@@ -122,6 +155,7 @@ export default function BasicTable() {
         onSelect={onSelect} // Function will trigger on select event
         onRemove={onRemove} // Function will trigger on remove event
         displayValue="name"
+        selectionLimit={1}
         ref={multiselectRef}
         // Property name to display in the dropdown options
       />
