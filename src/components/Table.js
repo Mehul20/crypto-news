@@ -9,7 +9,8 @@ import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { green, purple } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
+import Multiselect from "multiselect-react-dropdown";
 
 import {
   doc,
@@ -31,6 +32,26 @@ function createData(name, link, desc) {
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
   const [rows, setRows] = useState([]);
+
+  const multiselectRef = React.createRef();
+  const [tagged, setTagged] = useState(false);
+
+  const [options, setOptions] = useState([
+    { name: "Defi" },
+    { name: "DAO" },
+    { name: "NFT" },
+    { name: "Bitcoin" },
+    { name: "Conferences" },
+    { name: "Cryptocurrencies" },
+    { name: "Ethereum" },
+    { name: "Layer 2" },
+    { name: "Web3 Dev" },
+    { name: "Web3 Educational Resources" },
+    { name: "Web3 VC" },
+    { name: "Trading" },
+    { name: "Smart Contracts" },
+    { name: "Stablecoins" },
+  ]);
 
   useEffect(() => {
     loop();
@@ -62,6 +83,28 @@ export default function BasicTable() {
     temp = [];
   }
 
+  async function tagLoop(items) {
+        const querySnapshot = await getDocs(collection(db, "table"));
+        console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          if (doc.data().Description.includes(items[0].name)) {
+            temp.push(
+              createData(
+                doc.data().Name,
+                doc.data().Upvotes,
+                doc.data().Description
+              )
+            );
+          }
+        });
+        temp.sort((a, b) => {
+          return b.link - a.link;
+        });
+    
+        setRows(temp);
+        temp = [];
+      }
+
   const upvoteHandler = async (nameOfArticle) => {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
@@ -87,6 +130,18 @@ export default function BasicTable() {
 
   const navigate = useNavigate();
 
+  const onSelect = () => {
+    const items = multiselectRef.current.getSelectedItems();
+    console.log(items);
+    tagLoop(items);
+  };
+  const onRemove = () => {
+    const items = multiselectRef.current.getSelectedItems();
+    console.log(items);
+    loop();
+  };
+
+
   const gotoAdd = async () => {
     try {
       console.log("Added");
@@ -98,6 +153,15 @@ export default function BasicTable() {
 
   return (
     <div>
+        <Multiselect
+        options={options} // Options to display in the dropdown
+        onSelect={onSelect} // Function will trigger on select event
+        onRemove={onRemove} // Function will trigger on remove event
+        displayValue="name"
+        selectionLimit={1}
+        ref={multiselectRef}
+        // Property name to display in the dropdown options
+      />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
