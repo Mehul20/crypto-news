@@ -32,6 +32,7 @@ function Signup() {
         Email: registerEmail,
         Name: registerFullName,
         Upvotes: null,
+        Articles: null,
       });
 
       navigate("/homeWithLogIn");
