@@ -13,6 +13,16 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Add() {
   const [registerName, setName] = useState("");
@@ -38,6 +48,7 @@ function Add() {
     { name: "Stablecoins" },
   ]);
   const navigate = useNavigate();
+  const theme = createTheme();
 
   const register = async () => {
     const q = query(collection(db, "table"));
@@ -76,6 +87,11 @@ function Add() {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+  };
+
   const saveArticle = async () => {
     await updateDoc(doc(db, "users", email), {
       Articles: arrayUnion(registerName),
@@ -92,36 +108,95 @@ function Add() {
     console.log("onremove");
   };
 
-  return (
-    <div>
-      <div>
-        {console.log(email)}
-        <h3> Add Website </h3>
-        <input
-          placeholder="Name of the Resource"
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        ></input>
-        <input
-          placeholder="Link"
-          onChange={(event) => {
-            setLink(event.target.value);
-          }}
-        />
-        <Multiselect
-          options={options} // Options to display in the dropdown
-          onSelect={onSelect} // Function will trigger on select event
-          onRemove={onRemove} // Function will trigger on remove event
-          displayValue="name"
-          ref={multiselectRef}
-          selectionLimit={1}
-          // Property name to display in the dropdown options
-        />
+  const style = {
+    chips: {
+      background: "light-blue",
+    },
+    searchBox: {
+      // "border-radius": "25px",
+      height: "50px",
+      margin: "10px",
+      width: "100%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      paddingBottom: 0,
+      marginTop: 10,
+    },
+    multiselectContainer: {
+      color: "black",
+    },
+  };
 
-        <button onClick={register}> Save Article</button>
-      </div>
-    </div>
+  return (
+    <ThemeProvider theme={theme}>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 17,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        > 
+        <Typography component="h1" variant="h5">
+            Add Article
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 4 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="ArticleName"
+              label="Article Name"
+              name="ArticleName"
+              autoComplete="ArticleName"
+              autoFocus
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="Link"
+              label="Link"
+              name="Link"
+              autoComplete="Link"
+              autoFocus
+              onChange={(event) => {
+                setLink(event.target.value);
+              }}
+            />
+            <Multiselect
+              options={options} // Options to display in the dropdown
+              onSelect={onSelect} // Function will trigger on select event
+              onRemove={onRemove} // Function will trigger on remove event
+              displayValue="name"
+              ref={multiselectRef}
+              selectionLimit={1}
+              // Property name to display in the dropdown options
+              style={style}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={register}
+            >
+              Save
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 
