@@ -1,5 +1,8 @@
 import React from "react";
+
 import { doc, setDoc, query, getDocs, collection, arrayUnion, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
@@ -16,9 +19,8 @@ function Add() {
   // });
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
-  const [flag, setFlag] = useState(false);
 
-  const [valueofcopy, setvalueofcopy] = useState(0);
+  const [flag, setFlag] = useState(false);
 
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -40,6 +42,7 @@ function Add() {
     { name: "Stablecoins" },
   ]);
   const navigate = useNavigate();
+
 
 
 
