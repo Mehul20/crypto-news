@@ -1,19 +1,32 @@
-import React from "react";
+import * as React from "react";
+import { useState, createContext, useContext } from "react";
 import { doc, setDoc, query, getDocs, collection } from "firebase/firestore";
-import { useState, useContext } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase-config";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
 import { yellow } from "@mui/material/colors";
 
-function Add() {
-  // Add a new document in collection "cities"
-  // await setDoc(doc(db,  "users"), {
-  //   name: "Los Angeles",
-  //   state: "CA",
-  //   country: "USA"
-  // });
+const theme = createTheme();
+
+export default function Add() {
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
   const [flag, setFlag] = useState(false);
@@ -44,7 +57,6 @@ function Add() {
     const q = query(collection(db, "table"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       if (doc.data().Link == registerLinking) {
         console.log(doc.data().Link);
         console.log(registerLinking);
@@ -90,36 +102,97 @@ function Add() {
     console.log("onremove");
   };
 
-  return (
-    <div>
-      <div>
-        {console.log(email)}
-        <h3> Add Website </h3>
-        <input
-          placeholder="Name of the Resource"
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        ></input>
-        <input
-          placeholder="Link"
-          onChange={(event) => {
-            setLink(event.target.value);
-          }}
-        />
-        <Multiselect
-          options={options} // Options to display in the dropdown
-          onSelect={onSelect} // Function will trigger on select event
-          onRemove={onRemove} // Function will trigger on remove event
-          displayValue="name"
-          ref={multiselectRef}
-          // Property name to display in the dropdown options
-        />
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+  };
+  const style = {
+    chips: {
+      background: "light-blue",
+    },
+    searchBox: {
+      // "border-radius": "25px",
+      height: "50px",
+      margin: "10px",
+      width: "100%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      paddingBottom: 0,
+      marginTop: 10,
+    },
+    multiselectContainer: {
+      color: "black",
+    },
+  };
 
-        <button onClick={register}> Save Article</button>
-      </div>
-    </div>
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 17,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Add Article
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 4 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="ArticleName"
+              label="Article Name"
+              name="ArticleName"
+              autoComplete="ArticleName"
+              autoFocus
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="Link"
+              label="Link"
+              name="Link"
+              autoComplete="Link"
+              autoFocus
+              onChange={(event) => {
+                setLink(event.target.value);
+              }}
+            />
+            <Multiselect
+              options={options} // Options to display in the dropdown
+              onSelect={onSelect} // Function will trigger on select event
+              onRemove={onRemove} // Function will trigger on remove event
+              displayValue="name"
+              ref={multiselectRef}
+              // Property name to display in the dropdown options
+              style={style}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={register}
+            >
+              Save
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
-
-export default Add;

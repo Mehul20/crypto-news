@@ -4,9 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -21,7 +18,6 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
-import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 
@@ -58,7 +54,7 @@ export default function Login() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 17,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
