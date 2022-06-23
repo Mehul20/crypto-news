@@ -1,11 +1,14 @@
 import React from "react";
+
+import { doc, setDoc, query, getDocs, collection, arrayUnion, updateDoc } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
+
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
-import { yellow } from "@mui/material/colors";
+import { CollectionsBookmarkRounded, ExitToAppSharp } from "@mui/icons-material";
 
 function Add() {
   // Add a new document in collection "cities"
@@ -16,6 +19,9 @@ function Add() {
   // });
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
+
+  const [flag, setFlag] = useState(false);
+
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const multiselectRef = React.createRef();
@@ -37,26 +43,53 @@ function Add() {
   ]);
   const navigate = useNavigate();
 
-  const register = async () => {
-    try {
-      const items = multiselectRef.current.getSelectedItems();
-      let tempTags = [];
-      items.forEach(function (item) {
-        console.log(item.name);
-        tempTags.push(item.name);
-      });
 
-      await setDoc(doc(db, "table", registerName), {
-        Name: registerName,
-        Link: registerLinking,
-        Description: tempTags,
-        Upvotes: 0,
-      });
-      navigate("/homeWithLogIn");
-    } catch (error) {
-      console.log(error.message);
+
+
+  const register = async () => {
+    const q = query(collection(db, "table"));
+    const querySnapshot = await getDocs(q);
+    let c = 0;
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.data().Link)
+      if (doc.data().Link === registerLinking) {
+        c = c+1;
+      }
+    });
+    console.log(c);
+    if (c>=1) {
+      alert("Duplicate article being added. Please check your link");
+    } else {
+      try {
+        const items = multiselectRef.current.getSelectedItems();
+        let tempTags = [];
+        items.forEach(function (item) {
+          console.log(item.name);
+          tempTags.push(item.name);
+        });
+
+        await setDoc(doc(db, "table", registerName), {
+          Name: registerName,
+          Link: registerLinking,
+          Description: tempTags,
+          Upvotes: 0,
+        });
+        saveArticle()
+        navigate("/homeWithLogIn");
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
+
+  const saveArticle = async () => {
+    await updateDoc(doc(db, "users", email), {
+      Articles: arrayUnion(registerName),
+    });
+  };
+
+
 
   const onSelect = (selectedList, selectedItem) => {
     console.log("onselect");
@@ -91,6 +124,7 @@ function Add() {
           onRemove={onRemove} // Function will trigger on remove event
           displayValue="name"
           ref={multiselectRef}
+          selectionLimit = {1}
           // Property name to display in the dropdown options
         />
 
