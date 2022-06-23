@@ -1,5 +1,5 @@
 import React from "react";
-import { doc, setDoc, query, getDocs, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
@@ -16,8 +16,6 @@ function Add() {
   // });
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
-  const [flag, setFlag] = useState(false);
-
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const multiselectRef = React.createRef();
@@ -38,45 +36,25 @@ function Add() {
     { name: "Stablecoins" },
   ]);
   const navigate = useNavigate();
-  let temp = false;
-
-  const duplicateCheck = async function () {
-    const q = query(collection(db, "table"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      if (doc.data().Link == registerLinking) {
-        console.log(doc.data().Link);
-        console.log(registerLinking);
-
-        return true;
-      }
-    });
-    return false;
-  };
 
   const register = async () => {
-    if (duplicateCheck()) {
-      alert("Duplicate article being added. Please check your link");
-    } else {
-      try {
-        const items = multiselectRef.current.getSelectedItems();
-        let tempTags = [];
-        items.forEach(function (item) {
-          console.log(item.name);
-          tempTags.push(item.name);
-        });
+    try {
+      const items = multiselectRef.current.getSelectedItems();
+      let tempTags = [];
+      items.forEach(function (item) {
+        console.log(item.name);
+        tempTags.push(item.name);
+      });
 
-        await setDoc(doc(db, "table", registerName), {
-          Name: registerName,
-          Link: registerLinking,
-          Description: tempTags,
-          Upvotes: 0,
-        });
-        navigate("/homeWithLogIn");
-      } catch (error) {
-        console.log(error.message);
-      }
+      await setDoc(doc(db, "table", registerName), {
+        Name: registerName,
+        Link: registerLinking,
+        Description: tempTags,
+        Upvotes: 0,
+      });
+      navigate("/homeWithLogIn");
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
