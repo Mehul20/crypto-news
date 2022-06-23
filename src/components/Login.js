@@ -36,9 +36,6 @@ export default function Login() {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, loginPassword);
-
-      console.log("logged in");
-
       navigate("/homeWithLogIn");
     } catch (error) {
       console.log(error.message);
@@ -53,10 +50,6 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
