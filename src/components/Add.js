@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
-import { CollectionsBookmarkRounded } from "@mui/icons-material";
+import { CollectionsBookmarkRounded, ExitToAppSharp } from "@mui/icons-material";
 
 function Add() {
   // Add a new document in collection "cities"
@@ -17,6 +17,8 @@ function Add() {
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
   const [flag, setFlag] = useState(false);
+
+  const [valueofcopy, setvalueofcopy] = useState(0);
 
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -39,25 +41,21 @@ function Add() {
   ]);
   const navigate = useNavigate();
 
-  const duplicateCheck = async function () {
-    const q = query(collection(db, "table"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      if (doc.data().Link === registerLinking) {
-        console.log(doc.data().Link);
-        console.log(registerLinking);
-
-        return true;
-      }
-    });
-    console.log(registerLinking)
-    return false;
-  };
 
 
   const register = async () => {
-    if (duplicateCheck() === true) {
+    const q = query(collection(db, "table"));
+    const querySnapshot = await getDocs(q);
+    let c = 0;
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.data().Link)
+      if (doc.data().Link === registerLinking) {
+        c = c+1;
+      }
+    });
+    console.log(c);
+    if (c>=1) {
       alert("Duplicate article being added. Please check your link");
     } else {
       try {
@@ -123,6 +121,7 @@ function Add() {
           onRemove={onRemove} // Function will trigger on remove event
           displayValue="name"
           ref={multiselectRef}
+          selectionLimit = {1}
           // Property name to display in the dropdown options
         />
 
