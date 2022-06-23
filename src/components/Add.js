@@ -1,27 +1,23 @@
 import React from "react";
-
-import { doc, setDoc, query, getDocs, collection, arrayUnion, updateDoc } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
-
+import {
+  doc,
+  setDoc,
+  query,
+  getDocs,
+  collection,
+  arrayUnion,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { UserContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
-import { CollectionsBookmarkRounded, ExitToAppSharp } from "@mui/icons-material";
 
 function Add() {
-  // Add a new document in collection "cities"
-  // await setDoc(doc(db,  "users"), {
-  //   name: "Los Angeles",
-  //   state: "CA",
-  //   country: "USA"
-  // });
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
-
   const [flag, setFlag] = useState(false);
-
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const multiselectRef = React.createRef();
@@ -43,9 +39,6 @@ function Add() {
   ]);
   const navigate = useNavigate();
 
-
-
-
   const register = async () => {
     const q = query(collection(db, "table"));
     const querySnapshot = await getDocs(q);
@@ -54,11 +47,11 @@ function Add() {
       // doc.data() is never undefined for query doc snapshots
       // console.log(doc.data().Link)
       if (doc.data().Link === registerLinking) {
-        c = c+1;
+        c = c + 1;
       }
     });
     console.log(c);
-    if (c>=1) {
+    if (c >= 1) {
       alert("Duplicate article being added. Please check your link");
     } else {
       try {
@@ -75,7 +68,7 @@ function Add() {
           Description: tempTags,
           Upvotes: 0,
         });
-        saveArticle()
+        saveArticle();
         navigate("/homeWithLogIn");
       } catch (error) {
         console.log(error.message);
@@ -88,8 +81,6 @@ function Add() {
       Articles: arrayUnion(registerName),
     });
   };
-
-
 
   const onSelect = (selectedList, selectedItem) => {
     console.log("onselect");
@@ -124,7 +115,7 @@ function Add() {
           onRemove={onRemove} // Function will trigger on remove event
           displayValue="name"
           ref={multiselectRef}
-          selectionLimit = {1}
+          selectionLimit={1}
           // Property name to display in the dropdown options
         />
 
