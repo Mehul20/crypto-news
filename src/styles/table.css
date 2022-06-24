@@ -6,5 +6,21 @@
 }
 
 .header {
-  color: blue;
+  font-weight: 800;
+  font-size: larger;
+  font-family: 'Alice', serif;
+  font-family: 'Merriweather', serif;
+}
+
+.text {
+  font-family: 'Alice', serif;
+  font-family: 'Merriweather', serif;
+  font-size: medium;
+  font-weight: 500;
+  font-size: large;
+  text-decoration: none;
+  color: #000
+}
+.icon {
+  color: #000;
 }
