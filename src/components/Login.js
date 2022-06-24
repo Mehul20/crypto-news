@@ -19,12 +19,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { db } from "../firebase-config";
-import { UserContext } from "../App";
+import { UserContext, LoggedInEmailContext } from "../App";
 
 const theme = createTheme();
 
 export default function Login() {
   const { email, setEmail } = useContext(UserContext);
+  const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -32,7 +33,8 @@ export default function Login() {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, loginPassword);
-      navigate("/homeWithLogIn");
+      navigate("/table");
+      console.log(loggedInEmail);
     } catch (error) {
       console.log(error.message);
     }
@@ -47,6 +49,10 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
+
+  React.useEffect(() => {
+    localStorage.setItem("logged-In-Email", loggedInEmail);
+  }, [loggedInEmail]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -83,6 +89,7 @@ export default function Login() {
               autoFocus
               onChange={(event) => {
                 setEmail(event.target.value);
+                setLoggedInEmail(event.target.value);
               }}
             />
             <TextField

@@ -8,10 +8,10 @@ import {
   arrayUnion,
   updateDoc,
 } from "firebase/firestore";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
-import { UserContext } from "../App";
+import { UserContext, LoggedInEmailContext } from "../App";
 import Multiselect from "multiselect-react-dropdown";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -27,6 +27,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 function Add() {
   const [registerName, setName] = useState("");
   const { email, setEmail } = useContext(UserContext);
+  const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const [flag, setFlag] = useState(false);
   const [registerLinking, setLink] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -80,7 +81,7 @@ function Add() {
           Upvotes: 0,
         });
         saveArticle();
-        navigate("/homeWithLogIn");
+        navigate("/table");
       } catch (error) {
         console.log(error.message);
       }
@@ -93,7 +94,7 @@ function Add() {
   };
 
   const saveArticle = async () => {
-    await updateDoc(doc(db, "users", email), {
+    await updateDoc(doc(db, "users", loggedInEmail), {
       Articles: arrayUnion(registerName),
     });
   };
@@ -127,19 +128,23 @@ function Add() {
     },
   };
 
+  useEffect(() => {
+    localStorage.setItem("logged-In-Email", loggedInEmail);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 17,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-        > 
-        <Typography component="h1" variant="h5">
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 17,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
             Add Article
           </Typography>
           <Box

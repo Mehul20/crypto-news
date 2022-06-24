@@ -45,7 +45,7 @@ export default function Signup() {
         Upvotes: null,
       });
 
-      navigate("/homeWithLogIn");
+      navigate("/table");
     } catch (error) {
       console.log(error.message);
     }

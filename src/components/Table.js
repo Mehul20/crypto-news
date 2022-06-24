@@ -23,7 +23,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import { UserContext } from "../App";
+import { UserContext, LoggedInEmailContext } from "../App";
 
 function createData(name, linking, link, desc) {
   return { name, linking, link, desc };
@@ -31,6 +31,7 @@ function createData(name, linking, link, desc) {
 
 export default function BasicTable() {
   const { email, setEmail } = useContext(UserContext);
+  const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const [rows, setRows] = useState([]);
 
   const multiselectRef = React.createRef();
@@ -56,12 +57,13 @@ export default function BasicTable() {
   useEffect(() => {
     loop();
     rendering();
+    localStorage.setItem("logged-In-Email", loggedInEmail);
   }, []);
 
   const [upvotesData, setUpvotesData] = useState([]);
 
   async function rendering() {
-    const docRef = doc(db, "users", email);
+    const docRef = doc(db, "users", loggedInEmail);
     const docSnap = await getDoc(docRef);
     setUpvotesData(docSnap.data().Upvotes);
   }
@@ -70,7 +72,6 @@ export default function BasicTable() {
 
   async function loop() {
     const querySnapshot = await getDocs(collection(db, "table"));
-    console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       temp.push(
         createData(
@@ -90,7 +91,6 @@ export default function BasicTable() {
 
   async function tagLoop(items) {
     const querySnapshot = await getDocs(collection(db, "table"));
-    console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       if (doc.data().Description.includes(items[0].name)) {
         temp.push(
@@ -112,11 +112,12 @@ export default function BasicTable() {
   }
 
   const upvoteHandler = async (nameOfArticle) => {
-    const docRef = doc(db, "users", email);
+    // const docRef = doc(db, "users", email);
+    const docRef = doc(db, "users", loggedInEmail);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data().Upvotes;
     if (data == null || !data.includes(nameOfArticle)) {
-      await updateDoc(doc(db, "users", email), {
+      await updateDoc(doc(db, "users", loggedInEmail), {
         Upvotes: arrayUnion(nameOfArticle),
       });
       await updateDoc(doc(db, "table", nameOfArticle), {

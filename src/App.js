@@ -10,44 +10,75 @@ import Add from "./components/Add";
 import TableWithoutLogin from "./components/TableWithouLogin";
 
 export const UserContext = createContext();
+export const LoggedInEmailContext = createContext();
 
 function App() {
   const [email, setEmail] = useState("");
+  const [loggedInEmail, setLoggedInEmail] = useState(
+    // localStorage.getItem("logged-In-Email") === ""
+    localStorage.getItem("logged-In-Email")
+  );
+  // const saved = localStorage.getItem("logged-In-Email");
   return (
     <UserContext.Provider value={{ email, setEmail }}>
-      <Router>
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="add" element={<Add />} />
-          <Route
-            path=""
-            element={
-              <div className="App">
-                <div className="navbar">
-                  <Navbar />
+      <LoggedInEmailContext.Provider
+        value={{ loggedInEmail, setLoggedInEmail }}
+      >
+        <Router>
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="add" element={<Add />} />
+            <Route
+              path=""
+              element={
+                <div className="App">
+                  <div className="navbar">
+                    <Navbar />
+                  </div>
+                  <div className="news-table">
+                    <TableWithoutLogin />
+                  </div>
                 </div>
-                <div className="news-table">
-                  <TableWithoutLogin />
+              }
+            />
+            <Route
+              path="homeWithLogIn"
+              element={
+                <div className="App">
+                  <div className="navbar">
+                    <Navbar />
+                  </div>
+                  <div className="news-table">
+                    <Table />
+                  </div>
                 </div>
-              </div>
-            }
-          />
-          <Route
-            path="homeWithLogIn"
-            element={
-              <div className="App">
-                <div className="navbar">
-                  <Navbar />
+              }
+            />
+            <Route
+              path="table"
+              element={
+                <div className="App">
+                  <div className="navbar">
+                    <Navbar />
+                  </div>
+                  <div>
+                    {loggedInEmail != "" ? (
+                      <div className="news-table">
+                        <Table />
+                      </div>
+                    ) : (
+                      <div className="news-table">
+                        <TableWithoutLogin />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="news-table">
-                  <Table />
-                </div>
-              </div>
-            }
-          />
-        </Routes>
-      </Router>
+              }
+            />
+          </Routes>
+        </Router>
+      </LoggedInEmailContext.Provider>
     </UserContext.Provider>
   );
 }
