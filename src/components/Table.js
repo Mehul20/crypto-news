@@ -11,6 +11,8 @@ import { db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import Multiselect from "multiselect-react-dropdown";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "../styles/table.css"
 
 import {
   doc,
@@ -131,6 +133,7 @@ export default function BasicTable() {
   };
 
   const navigate = useNavigate();
+  const theme = createTheme();
 
   const onSelect = () => {
     const items = multiselectRef.current.getSelectedItems();
@@ -152,7 +155,29 @@ export default function BasicTable() {
     }
   };
 
+  const style = {
+    chips: {
+      background: "light-blue",
+    },
+    searchBox: {
+      // "border-radius": "25px",
+      height: "40px",
+      margin: "10px",
+      width: "100%",
+      marginLeft: "auto",
+      marginRight: "auto",
+      paddingBottom: 0,
+      marginTop: 10,
+      marginBottom: 20,
+    },
+    multiselectContainer: {
+      color: "black",
+    },
+  };
+
+
   return (
+    <ThemeProvider theme={theme}>
     <div>
       <Multiselect
         options={options} // Options to display in the dropdown
@@ -161,18 +186,21 @@ export default function BasicTable() {
         displayValue="name"
         selectionLimit={1}
         ref={multiselectRef}
+        placeholder = "Search for Tags"
         // Property name to display in the dropdown options
+        style={style}
+        
       />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
+          <TableHead className = "tableheaddesign">
             <TableRow>
-              <TableCell style={{ width: "50%" }}>Article Name</TableCell>
-              <TableCell style={{ width: "15%" }} align="center">
-                Upvotes
+              <TableCell style={{ width: "40%" }} ><div classN="header"> Article Name </div></TableCell>
+              <TableCell style={{ width: "20%" }} align="left"  >
+                Tags
               </TableCell>
-              <TableCell style={{ width: "35%" }} align="center">
-                Topic
+              <TableCell style={{ width: "10%"}} align="left" >
+                Upvotes
               </TableCell>
             </TableRow>
           </TableHead>
@@ -188,7 +216,12 @@ export default function BasicTable() {
                     {row.name}
                   </a>
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="left">
+                  {row.desc.map((data, index) => {
+                    return <Chip label={data} variant="outlined" />;
+                  })}
+                </TableCell>
+                <TableCell align="left">
                   <div
                     style={{
                       display: "flex",
@@ -210,11 +243,7 @@ export default function BasicTable() {
                     </div>
                   </div>
                 </TableCell>
-                <TableCell align="center">
-                  {row.desc.map((data, index) => {
-                    return <Chip label={data} variant="outlined" />;
-                  })}
-                </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
@@ -222,5 +251,6 @@ export default function BasicTable() {
       </TableContainer>
       <button onClick={gotoAdd}> Add an article </button>
     </div>
+    </ThemeProvider>
   );
 }

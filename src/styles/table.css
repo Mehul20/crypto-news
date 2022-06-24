@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-.table-header {
-  font-family: "Roboto", sans-serif;
+
+.tableheaddesign{
+  background: #ff9f1c;
+}
+
+.header {
+  color: blue;
 }
