@@ -108,17 +108,15 @@ export default function Login() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, ml: 4 }}
-                  onClick={goToSignup}
-                >
-                  Don't have an account? Sign up!
-                </Button>
-              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={goToSignup}
+              >
+                Don't have an account? Sign up here!
+              </Button>
             </Grid>
           </Box>
         </Box>
