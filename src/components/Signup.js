@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { UserContext } from "../App";
+import { UserContext, LoggedInEmailContext } from "../App";
 
 const theme = createTheme();
 
@@ -29,6 +29,7 @@ export default function Signup() {
   const [registerFullName, setRegisterFullName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const { email, setEmail } = useContext(UserContext);
+  const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const navigate = useNavigate();
 
   const register = async () => {
@@ -45,7 +46,7 @@ export default function Signup() {
         Upvotes: null,
       });
 
-      navigate("/homeWithLogIn");
+      navigate("/table");
     } catch (error) {
       console.log(error.message);
     }
@@ -60,6 +61,10 @@ export default function Signup() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
+
+  React.useEffect(() => {
+    localStorage.setItem("logged-In-Email", loggedInEmail);
+  }, [loggedInEmail]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -110,6 +115,7 @@ export default function Signup() {
               onChange={(event) => {
                 setRegisterEmail(event.target.value);
                 setEmail(event.target.value);
+                setLoggedInEmail(event.target.value);
               }}
             />
             <TextField
