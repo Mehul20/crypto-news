@@ -2,7 +2,22 @@
 
 
 .tableheaddesign{
-  background: #ff9f1c;
+  background: #f6f2f9;
+}
+.tableheader{
+  display: flex;
+  flex-direction: row;
+  min-width: 650px;
+  justify-content: space-between;
+}
+
+.buttonstyle{
+  height: 40px;
+  
+}
+
+.buttondiv {
+  margin-top: 10px;
 }
 
 .header {

@@ -41,12 +41,10 @@
   margin-bottom: 50px;
 }
 
+
 .news-table {
   display: flex;
-  flex-direction: column;
-  margin-top: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;

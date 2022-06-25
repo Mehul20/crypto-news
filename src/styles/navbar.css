@@ -1,0 +1,8 @@
+.buttonright {
+    align-items: right;
+    justify-content: right;
+}
+.background {
+    color: white;
+    flex-grow: 1;
+}
