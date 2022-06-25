@@ -24,7 +24,7 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{background: "#b79ced"}}>
         <Toolbar className="buttonright">
           <Button color="inherit" onClick={navigateLogin} align="right">
             Login
