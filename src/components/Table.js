@@ -207,14 +207,14 @@ export default function BasicTable() {
         <Table aria-label="simple table">
           <TableHead className = "tableheaddesign">
             <TableRow>
-              <TableCell style={{ width: "25%" }} className="header" ><div className="header"> Article Name </div></TableCell>
-              <TableCell style={{ width: "10%" }} align="left"  className="header" >
+              <TableCell style={{ width: "50%" }} className="header" ><div className="header"> Article Name </div></TableCell>
+              <TableCell style={{ width: "20%" }} align="left"  className="header" >
               <div className="header"> Tags </div>
               </TableCell>
-              <TableCell style={{ width: "10%"}} align="left" className="header">
+              <TableCell style={{ width: "15"}} align="left" className="header">
               <div className="header"> Upvotes </div>
               </TableCell>
-              <TableCell style={{ width: "10%"}} align="left" className="header">
+              <TableCell style={{ width: "15%"}} align="left" className="header">
               <div className="header"> Link </div>
               </TableCell>
             </TableRow>

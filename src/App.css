@@ -43,9 +43,11 @@
 
 
 .news-table {
-  display: flex;
+  display: block;
   flex-direction: row;
   align-items: center;
+  margin-left: 25px;
+  margin-right: 25px;
   justify-content: center;
   text-align: center;
 }
