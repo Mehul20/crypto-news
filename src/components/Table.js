@@ -14,6 +14,7 @@ import Multiselect from "multiselect-react-dropdown";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "../styles/table.css"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Button from "@mui/material/Button";
 
 import {
   doc,
@@ -159,7 +160,7 @@ export default function BasicTable() {
 
   const style = {
     chips: {
-      background: "light-blue",
+      background: "#b79ced",
     },
     searchBox: {
       // "border-radius": "25px",
@@ -167,7 +168,7 @@ export default function BasicTable() {
       margin: "10px",
       width: "100%",
       marginLeft: "auto",
-      marginRight: "auto",
+      marginRight: 20,
       paddingBottom: 0,
       marginTop: 10,
       marginBottom: 20,
@@ -181,6 +182,13 @@ export default function BasicTable() {
   return (
     <ThemeProvider theme={theme}>
     <div>
+      <div className="tableheader">
+
+      <div className="buttondiv"> 
+      <Button onClick={gotoAdd} type="submit" variant="outlined"
+               className="buttonstyle" > Add an article </Button>
+      </div>
+              
       <Multiselect
         options={options} // Options to display in the dropdown
         onSelect={onSelect} // Function will trigger on select event
@@ -193,12 +201,14 @@ export default function BasicTable() {
         style={style}
         
       />
+      
+      </div>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 800 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead className = "tableheaddesign">
             <TableRow>
-              <TableCell style={{ width: "40%" }} className="header" ><div className="header"> Article Name </div></TableCell>
-              <TableCell style={{ width: "20%" }} align="left"  className="header" >
+              <TableCell style={{ width: "25%" }} className="header" ><div className="header"> Article Name </div></TableCell>
+              <TableCell style={{ width: "10%" }} align="left"  className="header" >
               <div className="header"> Tags </div>
               </TableCell>
               <TableCell style={{ width: "10%"}} align="left" className="header">
@@ -224,7 +234,12 @@ export default function BasicTable() {
 
                 <TableCell align="left">
                   {row.desc.map((data, index) => {
-                    return <Chip label={data} variant="outlined" style={{backgroundColor: "#9984D4" }} />;
+                    return <Chip label={data} variant="outlined" style={{
+                      backgroundColor: "#b79ced", 
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontFamily: "Alice', serif"
+                   }} size ="large" />;
                   })}
                 </TableCell>
 
@@ -260,7 +275,7 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <button onClick={gotoAdd}> Add an article </button>
+      
     </div>
     </ThemeProvider>
   );
