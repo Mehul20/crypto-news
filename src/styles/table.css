@@ -1,19 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-
-.tableheaddesign{
+.tableheaddesign {
   background: #f6f2f9;
 }
-.tableheader{
+.tableheader {
   display: flex;
   flex-direction: block;
   justify-content: space-between;
 }
 
-.buttonstyle{
+.buttonstyle {
   height: 40px;
-  color: #b79ced;
-  
+  border: "4px solid";
 }
 
 .buttondiv {
@@ -25,18 +23,18 @@
 .header {
   font-weight: 800;
   font-size: larger;
-  font-family: 'Alice', serif;
-  font-family: 'Merriweather', serif;
+  font-family: "Alice", serif;
+  font-family: "Merriweather", serif;
 }
 
 .text {
-  font-family: 'Alice', serif;
-  font-family: 'Merriweather', serif;
+  font-family: "Alice", serif;
+  font-family: "Merriweather", serif;
   font-size: medium;
   font-weight: 500;
   font-size: large;
   text-decoration: none;
-  color: #000
+  color: #000;
 }
 .icon {
   color: #000;

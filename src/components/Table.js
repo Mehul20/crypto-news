@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import Multiselect from "multiselect-react-dropdown";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "../styles/table.css"
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import "../styles/table.css";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Button from "@mui/material/Button";
 
 import {
@@ -162,6 +162,10 @@ export default function BasicTable() {
     chips: {
       background: "#b79ced",
     },
+    option: {
+      color: "black",
+    },
+
     searchBox: {
       // "border-radius": "25px",
       height: "40px",
@@ -178,105 +182,134 @@ export default function BasicTable() {
     },
   };
 
-
   return (
     <ThemeProvider theme={theme}>
-    <div>
-      <div className="tableheader">
+      <div>
+        <div className="tableheader">
+          <div className="buttondiv">
+            <Button
+              onClick={gotoAdd}
+              type="submit"
+              variant="outlined"
+              className="buttonstyle"
+              style={{
+                border: "1.5px solid",
+                borderColor: "#9f81db",
+              }}
+            >
+              {" "}
+              Add an article{" "}
+            </Button>
+          </div>
 
-      <div className="buttondiv"> 
-      <Button onClick={gotoAdd} type="submit" variant="outlined"
-               className="buttonstyle" > Add an article </Button>
-      </div>
-              
-      <Multiselect
-        options={options} // Options to display in the dropdown
-        onSelect={onSelect} // Function will trigger on select event
-        onRemove={onRemove} // Function will trigger on remove event
-        displayValue="name"
-        selectionLimit={1}
-        ref={multiselectRef}
-        placeholder = "Search for Tags"
-        // Property name to display in the dropdown options
-        style={style}
-        
-      />
-      
-      </div>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead className = "tableheaddesign">
-            <TableRow>
-              <TableCell style={{ width: "50%" }} className="header" ><div className="header"> Article Name </div></TableCell>
-              <TableCell style={{ width: "20%" }} align="left"  className="header" >
-              <div className="header"> Tags </div>
-              </TableCell>
-              <TableCell style={{ width: "15"}} align="left" className="header">
-              <div className="header"> Upvotes </div>
-              </TableCell>
-              <TableCell style={{ width: "15%"}} align="left" className="header">
-              <div className="header"> Link </div>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  <a href={row.linking} target="_blank" className="text">
-                    {row.name}
-                  </a>
+          <Multiselect
+            options={options} // Options to display in the dropdown
+            onSelect={onSelect} // Function will trigger on select event
+            onRemove={onRemove} // Function will trigger on remove event
+            displayValue="name"
+            selectionLimit={1}
+            ref={multiselectRef}
+            placeholder="Search for Tags"
+            // Property name to display in the dropdown options
+            style={style}
+          />
+        </div>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead className="tableheaddesign">
+              <TableRow>
+                <TableCell style={{ width: "50%" }} className="header">
+                  <div className="header"> Article Name </div>
                 </TableCell>
-
-                <TableCell align="left">
-                  {row.desc.map((data, index) => {
-                    return <Chip label={data} variant="outlined" style={{
-                      backgroundColor: "#b79ced", 
-                      color: "#fff",
-                      fontWeight: "bold",
-                      fontFamily: "Alice', serif"
-                   }} size ="large" />;
-                  })}
+                <TableCell
+                  style={{ width: "20%" }}
+                  align="left"
+                  className="header"
+                >
+                  <div className="header"> Tags </div>
                 </TableCell>
-
-
-                <TableCell align="left">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span>{row.link}</span>
-                    <div>
-                      {upvotesData != null && upvotesData.includes(row.name) ? (
-                        <ArrowCircleUpIcon style={{ color: green[500] }} />
-                      ) : (
-                        <ArrowCircleUpIcon
-                          onClick={() => {
-                            upvoteHandler(row.name);
-                          }}
-                          sx={{ "&:hover": { color: green[500] } }}
-                        />
-                      )}
-                    </div>
-                  </div>
+                <TableCell
+                  style={{ width: "15" }}
+                  align="left"
+                  className="header"
+                >
+                  <div className="header"> Upvotes </div>
                 </TableCell>
-                <TableCell>
-                          <a href={row.linking} className="icon"> <OpenInNewIcon> </OpenInNewIcon> </a>
-                  </TableCell>
-                
+                <TableCell
+                  style={{ width: "15%" }}
+                  align="left"
+                  className="header"
+                >
+                  <div className="header"> Link </div>
+                </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      
-    </div>
+            </TableHead>
+
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    <a href={row.linking} target="_blank" className="text">
+                      {row.name}
+                    </a>
+                  </TableCell>
+
+                  <TableCell align="left">
+                    {row.desc.map((data, index) => {
+                      return (
+                        <Chip
+                          label={data}
+                          variant="outlined"
+                          style={{
+                            backgroundColor: "#b79ced",
+                            color: "#fff",
+                            fontWeight: "bold",
+                            fontFamily: "Alice', serif",
+                          }}
+                          size="large"
+                        />
+                      );
+                    })}
+                  </TableCell>
+
+                  <TableCell align="left">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span>{row.link}</span>
+                      <div>
+                        {upvotesData != null &&
+                        upvotesData.includes(row.name) ? (
+                          <ArrowCircleUpIcon style={{ color: green[500] }} />
+                        ) : (
+                          <ArrowCircleUpIcon
+                            onClick={() => {
+                              upvoteHandler(row.name);
+                            }}
+                            sx={{ "&:hover": { color: green[500] } }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <a href={row.linking} className="icon">
+                      {" "}
+                      <OpenInNewIcon> </OpenInNewIcon>{" "}
+                    </a>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </ThemeProvider>
   );
 }

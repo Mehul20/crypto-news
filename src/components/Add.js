@@ -157,6 +157,7 @@ function Add() {
               id="ArticleName"
               label="Article Name"
               name="ArticleName"
+              inputProps={{ maxLength: 120 }}
               autoComplete="ArticleName"
               autoFocus
               onChange={(event) => {
@@ -165,7 +166,7 @@ function Add() {
             />
             <TextField
               margin="normal"
-              required
+              required={true}
               fullWidth
               id="Link"
               label="Link"
