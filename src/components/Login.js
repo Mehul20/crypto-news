@@ -109,7 +109,14 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                background: "#b79ced",
+                "&:hover": {
+                  backgroundColor: "#9f81db",
+                },
+              }}
               onClick={login}
             >
               Sign In
@@ -119,7 +126,14 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  background: "#b79ced",
+                  "&:hover": {
+                    backgroundColor: "#9f81db",
+                  },
+                }}
                 onClick={goToSignup}
               >
                 Don't have an account? Sign up here!

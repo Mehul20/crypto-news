@@ -190,7 +190,14 @@ function Add() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                background: "#b79ced",
+                "&:hover": {
+                  backgroundColor: "#9f81db",
+                },
+              }}
               onClick={register}
             >
               Save

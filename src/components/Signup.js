@@ -135,7 +135,14 @@ export default function Signup() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                background: "#b79ced",
+                "&:hover": {
+                  backgroundColor: "#9f81db",
+                },
+              }}
               onClick={register}
             >
               Sign Up
@@ -145,7 +152,14 @@ export default function Signup() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  background: "#b79ced",
+                  "&:hover": {
+                    backgroundColor: "#9f81db",
+                  },
+                }}
                 onClick={goToLogin}
               >
                 Already have an account? Sign in here
