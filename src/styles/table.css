@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@600&display=swap");
 .tableheaddesign {
   background: #f6f2f9;
 }
@@ -23,13 +24,15 @@
 .header {
   font-weight: 800;
   font-size: larger;
-  font-family: "Alice", serif;
-  font-family: "Merriweather", serif;
+  font-family: "Hind Siliguri", sans-serif;
+}
+
+.exploreAndCurate {
+  font-family: "Merriweather Sans", sans-serif;
 }
 
 .text {
-  font-family: "Alice", serif;
-  font-family: "Merriweather", serif;
+  font-family: "Hind Siliguri", sans-serif;
   font-size: medium;
   font-weight: 500;
   font-size: large;

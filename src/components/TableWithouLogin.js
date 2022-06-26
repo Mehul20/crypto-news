@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 import { getDocs, collection, getDoc } from "firebase/firestore";
+import "../styles/table.css";
 
 function createData(name, linking, link, desc) {
   return { name, linking, link, desc };
@@ -103,8 +104,8 @@ export default function BasicTable() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <h1>
-          Explore and Curate Web3 articles
+        <h1 className="exploreAndCurate">
+          Explore curated Web3 news & articles
           <br></br> on Converge
         </h1>
         <TableContainer component={Paper}>
