@@ -16,6 +16,7 @@ export default function Waitlist() {
   const [waitlistEmail, setWailistEmail] = useState("");
   const [user, setUser] = useState("");
   const navigate = useNavigate();
+  const [flag, setflag] = useState(false);
 
   const joinWaitlist = async () => {
     console.log(waitlistEmail);
@@ -24,11 +25,17 @@ export default function Waitlist() {
       Email: waitlistEmail,
       Name: user,
     });
+    setflag(true);
     navigate("");
   };
 
   return (
     <ThemeProvider theme={theme}>
+        { !flag ? (
+          <div> 
+        <div style={{ marginTop: "30px" }}>
+          <h1 className="gradient-text">Join the waitlist</h1>
+        </div>
       <Container component="main" maxWidth="xs">
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
@@ -73,6 +80,11 @@ export default function Waitlist() {
           </Button>
         </Box>
       </Container>
+      </div>
+      ) : <div style={{ marginTop: "30px" }}>
+      <h1 className="gradient-text">Thanks for joining!</h1>
+    </div>
+      }
     </ThemeProvider>
   );
 }

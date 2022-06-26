@@ -49,7 +49,7 @@ export default function BasicTable() {
     temp.sort((a, b) => {
       return b.link - a.link;
     });
-    setRows(temp.slice(0, 5));
+    setRows(temp.slice(0, 3));
     temp = [];
   }
 
@@ -196,9 +196,6 @@ export default function BasicTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        <div style={{ marginTop: "30px" }}>
-          <h1 className="gradient-text">Join the waitlist</h1>
-        </div>
         <Waitlist />
       </div>
     </ThemeProvider>

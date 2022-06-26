@@ -61,7 +61,7 @@ export default function ButtonAppBar() {
           </Typography>
           {name != "" ? (
             <div>
-              Hi, {name}!{console.log(loggedInEmail)}
+              Hi, {name} 👋 {console.log(loggedInEmail)} 
             </div>
           ) : (
             <div>
