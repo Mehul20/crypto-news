@@ -30,8 +30,19 @@ export default function Signup() {
   const [registerPassword, setRegisterPassword] = useState("");
   const { email, setEmail } = useContext(UserContext);
   const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
+  const [code, setCode] = useState("");
   const navigate = useNavigate();
 
+  const checkcode = () => {
+    console.log(code);  
+    if (code === "converge1") {
+        console.log(code);
+        register();
+      } else {
+        alert("nOOOOOOOB");
+      }
+
+  }
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -51,6 +62,7 @@ export default function Signup() {
       console.log(error.message);
     }
   };
+
 
   const goToLogin = () => {
     console.log("in signup");
@@ -131,6 +143,18 @@ export default function Signup() {
                 setRegisterPassword(event.target.value);
               }}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="Waitlistcode"
+              label="Waitlistcode"
+              type="waitlistcode"
+              id="waitlist Code"
+              onChange={(event) => {
+                setCode(event.target.value);
+              }}
+            />
             <Button
               type="submit"
               fullWidth
@@ -143,7 +167,7 @@ export default function Signup() {
                   backgroundColor: "#9f81db",
                 },
               }}
-              onClick={register}
+              onClick={checkcode}
             >
               Sign Up
             </Button>
