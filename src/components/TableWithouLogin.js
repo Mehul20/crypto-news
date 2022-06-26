@@ -19,6 +19,7 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { UserContext } from "../App";
 import { getDocs, collection, getDoc } from "firebase/firestore";
 import "../styles/table.css";
+import Waitlist from "./Waitlist";
 
 function createData(name, linking, link, desc) {
   return { name, linking, link, desc };
@@ -196,6 +197,7 @@ export default function BasicTable() {
         <div style={{ marginTop: "30px" }}>
           <h1 className="gradient-text">Join the waitlist</h1>
         </div>
+        <Waitlist />
       </div>
     </ThemeProvider>
   );
