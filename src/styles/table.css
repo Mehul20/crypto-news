@@ -39,3 +39,10 @@
 .icon {
   color: #000;
 }
+
+.gradient-text {
+  background-color: #7f53ac;
+  background-image: linear-gradient(315deg, #7f53ac 28%, #647dee 84%);
+  background-clip: text;
+  color: transparent;
+}

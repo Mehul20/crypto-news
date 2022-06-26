@@ -103,6 +103,10 @@ export default function BasicTable() {
   return (
     <ThemeProvider theme={theme}>
       <div>
+        <h1>
+          Explore and Curate Web3 articles
+          <br></br> on Converge
+        </h1>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead className="tableheaddesign">
@@ -188,6 +192,9 @@ export default function BasicTable() {
             </TableBody>
           </Table>
         </TableContainer>
+        <div style={{ marginTop: "30px" }}>
+          <h1 className="gradient-text">Join the waitlist</h1>
+        </div>
       </div>
     </ThemeProvider>
   );
