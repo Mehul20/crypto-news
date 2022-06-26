@@ -105,9 +105,11 @@ export default function BasicTable() {
     <ThemeProvider theme={theme}>
       <div>
         <h1 className="exploreAndCurate">
-          Explore curated Web3 news & articles
-          <br></br> on Converge
-        </h1>
+          Explore <span className="gradient-text"> curated  </span> 
+          <br/> Web3 news & articles
+          <br/> on <span className="gradient-text"> Converge  </span>
+          </h1>
+        
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead className="tableheaddesign">
