@@ -50,8 +50,15 @@ export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: "#b79ced" }}>
-
-        <Toolbar className="buttonright">
+        <Toolbar>
+          <Typography
+            align="left"
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
+            Converge
+          </Typography>
           {name != "" ? (
             <div>
               Hi, {name}!{console.log(loggedInEmail)}
