@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Add from "./components/Add";
 import TableWithoutLogin from "./components/TableWithouLogin";
+import NavbarWithoutLogin from "./components/NavbarWithoutLogin";
 
 export const UserContext = createContext();
 export const LoggedInEmailContext = createContext();
@@ -34,7 +35,7 @@ function App() {
               element={
                 <div className="App">
                   <div className="navbar">
-                    <Navbar />
+                    <NavbarWithoutLogin />
                   </div>
                   <div className="news-table">
                     <TableWithoutLogin />
