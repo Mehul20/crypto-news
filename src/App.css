@@ -46,8 +46,21 @@
   display: block;
   flex-direction: row;
   align-items: center;
-  margin-left: 25px;
-  margin-right: 25px;
+  margin-left: 20%;
+  margin-right: 20%;
   justify-content: center;
   text-align: center;
+}
+
+@media screen and (max-width: 900px) {
+  .news-table {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .news-table {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }

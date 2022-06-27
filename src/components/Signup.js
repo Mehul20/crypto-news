@@ -39,7 +39,7 @@ export default function Signup() {
         console.log(code);
         register();
       } else {
-        alert("nOOOOOOOB");
+        alert("Sorry, Waitlist code doesn't match!");
       }
 
   }
