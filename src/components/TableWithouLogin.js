@@ -21,8 +21,8 @@ import { getDocs, collection, getDoc } from "firebase/firestore";
 import "../styles/table.css";
 import Waitlist from "./Waitlist";
 
-function createData(name, linking, link, desc) {
-  return { name, linking, link, desc };
+function createData(name, linking, source, link, desc) {
+  return { name, linking, source, link, desc };
 }
 
 export default function BasicTable() {
@@ -41,6 +41,7 @@ export default function BasicTable() {
         createData(
           doc.data().Name,
           doc.data().Link,
+          doc.data().Source,
           doc.data().Upvotes,
           doc.data().Description
         )
@@ -106,34 +107,37 @@ export default function BasicTable() {
     <ThemeProvider theme={theme}>
       <div>
         <h1 className="exploreAndCurate">
-          Explore <span className="gradient-text"> curated  </span> 
-          <br/> Web3 news & articles
-          <br/> on <span className="gradient-text"> Converge  </span>
-          </h1>
-        
+          Explore <span className="gradient-text"> curated </span>
+          <br /> Web3 news & articles
+          <br /> on <span className="gradient-text"> Converge </span>
+        </h1>
+
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead className="tableheaddesign">
               <TableRow>
-                <TableCell style={{ width: "50%" }} className="header">
+                <TableCell style={{ width: "40%" }} className="header">
                   <div className="header"> Article Name </div>
                 </TableCell>
+                <TableCell style={{ width: "25%" }} className="header">
+                  <div className="header"> Source </div>
+                </TableCell>
                 <TableCell
-                  style={{ width: "20%" }}
+                  style={{ width: "15%" }}
                   align="left"
                   className="header"
                 >
                   <div className="header"> Tags </div>
                 </TableCell>
                 <TableCell
-                  style={{ width: "15" }}
+                  style={{ width: "10%" }}
                   align="left"
                   className="header"
                 >
                   <div className="header"> Upvotes </div>
                 </TableCell>
                 <TableCell
-                  style={{ width: "15%" }}
+                  style={{ width: "10%" }}
                   align="left"
                   className="header"
                 >
@@ -151,6 +155,11 @@ export default function BasicTable() {
                   <TableCell component="th" scope="row">
                     <a href={row.linking} target="_blank" className="text">
                       {row.name}
+                    </a>
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <a href={row.linking} target="_blank" className="text">
+                      {row.source}
                     </a>
                   </TableCell>
 
@@ -179,7 +188,13 @@ export default function BasicTable() {
                         alignItems: "center",
                       }}
                     >
-                      <span>{row.link}</span>
+                      <span
+                        style={{
+                          fontSize: "large",
+                        }}
+                      >
+                        {row.link}
+                      </span>
                       <div>
                         <ArrowCircleUpIcon />
                       </div>
