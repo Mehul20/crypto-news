@@ -131,6 +131,7 @@ export default function BasicTable() {
       });
       loop();
       rendering();
+      onSelect();
       console.log(email);
     } else {
       console.log("exists");
