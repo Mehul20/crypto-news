@@ -234,7 +234,7 @@ export default function BasicTable() {
                   <div className="header"> Tags </div>
                 </TableCell>
                 <TableCell
-                  style={{ width: "10" }}
+                  style={{ width: "10%" }}
                   align="left"
                   className="header"
                 >
@@ -292,7 +292,9 @@ export default function BasicTable() {
                         alignItems: "center",
                       }}
                     >
-                      <span>{row.link}</span>
+                      <span style={{
+                        fontSize: "large"
+                      }}>{row.link}</span>
                       <div>
                         {upvotesData != null &&
                         upvotesData.includes(row.name) ? (

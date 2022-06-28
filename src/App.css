@@ -50,6 +50,7 @@
   margin-right: 20%;
   justify-content: center;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 900px) {
