@@ -108,7 +108,7 @@ export default function BasicTable() {
       <div>
         <h1 className="exploreAndCurate">
           Explore <span className="gradient-text"> curated </span>
-          <br /> Web3 news & articles
+          <br /> Web3 news & resources
           <br /> on <span className="gradient-text"> Converge </span>
         </h1>
 

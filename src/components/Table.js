@@ -200,7 +200,7 @@ export default function BasicTable() {
               }}
             >
               {" "}
-              Add an article{" "}
+              Add a resource" "}
             </Button>
           </div>
 
@@ -292,9 +292,13 @@ export default function BasicTable() {
                         alignItems: "center",
                       }}
                     >
-                      <span style={{
-                        fontSize: "large"
-                      }}>{row.link}</span>
+                      <span
+                        style={{
+                          fontSize: "large",
+                        }}
+                      >
+                        {row.link}
+                      </span>
                       <div>
                         {upvotesData != null &&
                         upvotesData.includes(row.name) ? (
