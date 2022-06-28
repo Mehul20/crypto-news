@@ -29,6 +29,13 @@ export default function ButtonAppBar() {
     navigate("/signup");
   };
 
+  const signout = () => {
+    // 👇️ navigate to /
+    localStorage.setItem("logged-In-Email", "");
+    setLoggedInEmail("");
+    navigate("/");
+  };
+
   useEffect(() => {
     if (loggedInEmail != "") {
       getName();
@@ -61,7 +68,10 @@ export default function ButtonAppBar() {
           </Typography>
           {name != "" ? (
             <div>
-              Hi, {name} 👋 {console.log(loggedInEmail)} 
+              Hi, {name} 👋 {console.log(loggedInEmail)}
+              <Button color="inherit" onClick={signout} align="right">
+                Sign out
+              </Button>
             </div>
           ) : (
             <div>
