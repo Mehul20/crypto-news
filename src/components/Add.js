@@ -27,6 +27,7 @@ function Add() {
   const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const [flag, setFlag] = useState(false);
   const [registerLinking, setLink] = useState("");
+  const [source, setSource] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const multiselectRef = React.createRef();
   const [options, setOptions] = useState([
@@ -74,6 +75,7 @@ function Add() {
         await setDoc(doc(db, "table", registerName), {
           Name: registerName,
           Link: registerLinking,
+          Source: source,
           Description: tempTags,
           Upvotes: 0,
         });
@@ -175,6 +177,19 @@ function Add() {
               autoFocus
               onChange={(event) => {
                 setLink(event.target.value);
+              }}
+            />
+            <TextField
+              margin="normal"
+              required={true}
+              fullWidth
+              id="Source"
+              label="Source"
+              name="Source"
+              autoComplete="Source"
+              autoFocus
+              onChange={(event) => {
+                setSource(event.target.value);
               }}
             />
             <Multiselect
