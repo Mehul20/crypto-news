@@ -34,7 +34,7 @@ export default function Waitlist() {
         { !flag ? (
           <div> 
         <div style={{ marginTop: "30px" }}>
-          <h1 className="gradient-text">Join the waitlist</h1>
+          <h1 className="gradient-text">Join the waitlist to explore more resources!</h1>
         </div>
       <Container component="main" maxWidth="xs">
         <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -76,7 +76,7 @@ export default function Waitlist() {
             }}
             onClick={joinWaitlist}
           >
-            Join!
+            Join
           </Button>
         </Box>
       </Container>

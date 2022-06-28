@@ -201,7 +201,7 @@ export default function BasicTable() {
               }}
             >
               {" "}
-              Add a resource" "}
+              <span className="buttontext"> Add a resource </span>
             </Button>
           </div>
 
