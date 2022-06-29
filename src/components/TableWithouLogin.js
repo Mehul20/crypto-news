@@ -201,7 +201,7 @@ export default function BasicTable() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <a href={row.linking} className="icon">
+                    <a href={row.linking} target ="_blank" className="icon">
                       {" "}
                       <OpenInNewIcon> </OpenInNewIcon>{" "}
                     </a>
