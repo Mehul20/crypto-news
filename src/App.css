@@ -42,7 +42,6 @@
   margin-bottom: 50px;
 }
 
-
 .news-table {
   display: block;
   flex-direction: row;
@@ -69,10 +68,18 @@
     margin-left: 5%;
     margin-right: 5%;
   }
+  .news-table-withoutlogin {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 @media screen and (max-width: 600px) {
   .news-table {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  .news-table-withoutlogin {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
   }
 }
