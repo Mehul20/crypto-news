@@ -21,8 +21,12 @@ import { auth } from "../firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { UserContext, LoggedInEmailContext } from "../App";
-
-const theme = createTheme();
+import "../styles/signup.css";
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 export default function Signup() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -89,10 +93,10 @@ export default function Signup() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#5E5DEF" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography sx={{ color: "white" }} component="h1" variant="h5">
             Sign up
           </Typography>
           <Box
@@ -161,9 +165,9 @@ export default function Signup() {
               sx={{
                 mt: 3,
                 mb: 2,
-                background: "#b79ced",
+                background: "#5E5DEF",
                 "&:hover": {
-                  backgroundColor: "#9f81db",
+                  backgroundColor: "#2423e8",
                 },
               }}
               onClick={checkcode}
@@ -178,9 +182,9 @@ export default function Signup() {
                 sx={{
                   mt: 3,
                   mb: 2,
-                  background: "#b79ced",
+                  background: "#5E5DEF",
                   "&:hover": {
-                    backgroundColor: "#9f81db",
+                    backgroundColor: "#2423e8",
                   },
                 }}
                 onClick={goToLogin}
