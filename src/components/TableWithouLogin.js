@@ -51,7 +51,7 @@ export default function BasicTable() {
     temp.sort((a, b) => {
       return b.link - a.link;
     });
-    temp = temp.slice(0, 3);
+    temp = temp.slice(0, 6);
     setRows(temp);
     temp = [];
   }
@@ -117,6 +117,21 @@ export default function BasicTable() {
           <br /> Web3 news & resources
           <br /> on <span className="gradient-text"> Converge </span>
         </h1>
+        <Button style={{
+              backgroundColor: "#5E5DEF",
+              borderRadius: "15px",
+              marginBottom: "20px"
+            }} href="#waitlistsection"> 
+              
+              <span style={{
+                color: "white",
+                fontSize: "20px",
+                fontWeight: "bold",
+                
+               
+              }}
+              > Join the Waitlist </span>
+            </Button>
 
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
@@ -217,7 +232,9 @@ export default function BasicTable() {
             </TableBody>
           </Table>
         </TableContainer>
+        <div id="waitlistsection">
         <Waitlist />
+        </div>
       </div>
     </ThemeProvider>
   );

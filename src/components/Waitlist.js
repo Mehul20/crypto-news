@@ -45,9 +45,13 @@ export default function Waitlist() {
             fullWidth
             id="name"
             label="Name"
+            variant="filled"
             name="name"
             autoComplete="name"
             autoFocus
+            sx ={{
+              backgroundColor:"#ffffff",
+            }}
             onChange={(event) => {
               setUser(event.target.value);
             }}
@@ -57,28 +61,31 @@ export default function Waitlist() {
             required
             fullWidth
             name="email"
+            variant="filled"
             label="Email"
             type="email"
             id="email"
+            sx ={{
+              backgroundColor:"#ffffff",
+            }}
             onChange={(event) => {
               setWailistEmail(event.target.value);
             }}
           />
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              "&:hover": {
-                backgroundColor: "#9f81db",
-              },
-            }}
-            className= "buttonwaitlist"
-            onClick={joinWaitlist}
-          >
-            Join
-          </Button>
+          <Button onClick={joinWaitlist}
+            style={{
+              backgroundColor: "#5E5DEF",
+              borderRadius: "15px",
+              marginBottom: "20px",
+              marginTop: "20px",
+            }}> 
+              <span style={{
+                color: "white",
+                fontSize: "18px",
+                fontWeight: "bold"
+               
+              }}> Join Now </span>
+            </Button>
         </Box>
       </Container>
       </div>

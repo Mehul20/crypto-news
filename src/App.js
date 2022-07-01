@@ -37,7 +37,7 @@ function App() {
                   <div className="navbar">
                     <NavbarWithoutLogin />
                   </div>
-                  <div className="news-table">
+                  <div className="news-table-withoutlogin">
                     <TableWithoutLogin />
                   </div>
                 </div>
