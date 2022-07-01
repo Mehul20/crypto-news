@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import "../styles/navbar.css";
 import { useNavigate } from "react-router-dom";
 import { UserContext, LoggedInEmailContext } from "../App";
 import { doc, getDoc } from "firebase/firestore";

@@ -178,6 +178,7 @@ export default function BasicTable() {
       paddingBottom: 0,
       marginTop: 10,
       marginBottom: 20,
+      backgroundColor: "white",
     },
     multiselectContainer: {
       color: "black",
@@ -195,12 +196,22 @@ export default function BasicTable() {
               variant="outlined"
               className="buttonstyle"
               style={{
-                border: "1.5px solid",
-                borderColor: "#9f81db",
+                backgroundColor: "#5E5DEF",
+                borderRadius: "15px",
               }}
             >
               {" "}
-              Add an article{" "}
+               <span
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                {" "}
+                Add a resource{" "}
+              </span>
+
             </Button>
           </div>
 
