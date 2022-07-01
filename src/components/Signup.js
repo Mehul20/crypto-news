@@ -72,6 +72,11 @@ export default function Signup() {
     navigate("/login");
   };
 
+  const goToWaitlist = () => {
+    console.log("in waitlist");
+    navigate("/");
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -190,6 +195,22 @@ export default function Signup() {
                 onClick={goToLogin}
               >
                 Already have an account? Sign in here
+              </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  background: "#5E5DEF",
+                  "&:hover": {
+                    backgroundColor: "#2423e8",
+                  },
+                }}
+                onClick={goToWaitlist}
+              >
+                Don't have a code? Join the waitlist
               </Button>
             </Grid>
           </Box>
