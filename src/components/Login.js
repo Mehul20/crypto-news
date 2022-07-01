@@ -36,6 +36,7 @@ export default function Login() {
       navigate("/table");
       console.log(loggedInEmail);
     } catch (error) {
+      alert(error.message);
       console.log(error.message);
     }
   };
