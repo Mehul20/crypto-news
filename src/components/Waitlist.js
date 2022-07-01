@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { db } from "../firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import "../styles/table.css";
 
 const theme = createTheme();
 
@@ -33,8 +34,8 @@ export default function Waitlist() {
     <ThemeProvider theme={theme}>
         { !flag ? (
           <div> 
-        <div style={{ marginTop: "30px" }}>
-          <h1 className="gradient-text">Join the waitlist to explore more resources!</h1>
+        <div style={{ marginTop: "20px"}}>
+        <h1 className="gradient-text">  <span className="exploreAndCurate"> Join the waitlist </span> <br />    to explore more resources!</h1>
         </div>
       <Container component="main" maxWidth="xs">
         <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -44,9 +45,13 @@ export default function Waitlist() {
             fullWidth
             id="name"
             label="Name"
+            variant="filled"
             name="name"
             autoComplete="name"
             autoFocus
+            sx ={{
+              backgroundColor:"#ffffff",
+            }}
             onChange={(event) => {
               setUser(event.target.value);
             }}
@@ -56,28 +61,31 @@ export default function Waitlist() {
             required
             fullWidth
             name="email"
+            variant="filled"
             label="Email"
             type="email"
             id="email"
+            sx ={{
+              backgroundColor:"#ffffff",
+            }}
             onChange={(event) => {
               setWailistEmail(event.target.value);
             }}
           />
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              background: "#b79ced",
-              "&:hover": {
-                backgroundColor: "#9f81db",
-              },
-            }}
-            onClick={joinWaitlist}
-          >
-            Join
-          </Button>
+          <Button onClick={joinWaitlist}
+            style={{
+              backgroundColor: "#5E5DEF",
+              borderRadius: "15px",
+              marginBottom: "20px",
+              marginTop: "20px",
+            }}> 
+              <span style={{
+                color: "white",
+                fontSize: "18px",
+                fontWeight: "bold"
+               
+              }}> Join Now </span>
+            </Button>
         </Box>
       </Container>
       </div>
