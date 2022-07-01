@@ -34,15 +34,14 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const checkcode = () => {
-    console.log(code);  
+    console.log(code);
     if (code === "converge1") {
-        console.log(code);
-        register();
-      } else {
-        alert("Sorry, Waitlist code doesn't match!");
-      }
-
-  }
+      console.log(code);
+      register();
+    } else {
+      alert("Sorry, Waitlist code doesn't match!");
+    }
+  };
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -59,10 +58,10 @@ export default function Signup() {
 
       navigate("/table");
     } catch (error) {
+      alert(error.message);
       console.log(error.message);
     }
   };
-
 
   const goToLogin = () => {
     console.log("in signup");
