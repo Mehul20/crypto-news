@@ -179,6 +179,7 @@ export default function BasicTable() {
       paddingBottom: 0,
       marginTop: 10,
       marginBottom: 20,
+      backgroundColor: "white",
     },
     multiselectContainer: {
       color: "black",
