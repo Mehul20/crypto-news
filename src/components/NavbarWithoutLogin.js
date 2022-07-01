@@ -49,7 +49,7 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: "#b79ced" }}>
+      <AppBar position="static" style={{ background: "#000" }}>
         <Toolbar>
           <Typography
             align="left"

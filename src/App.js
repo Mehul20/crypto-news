@@ -69,7 +69,7 @@ function App() {
                         <Table />
                       </div>
                     ) : (
-                      <div className="news-table">
+                      <div className="news-table-withoutlogin">
                         <TableWithoutLogin />
                       </div>
                     )}

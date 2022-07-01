@@ -27,6 +27,10 @@
   font-family: "Hind Siliguri", sans-serif;
 }
 
+.buttontext {
+  color: #4604F8;
+}
+
 
 .text {
   font-size: medium;
@@ -49,4 +53,9 @@
 .exploreAndCurate {
   font-size: 45px;
   font-weight: bolder;
+  color: white;
+}
+
+.buttonwaitlist {
+  background: -webkit-linear-gradient(#B79CEC, #4604F8);
 }

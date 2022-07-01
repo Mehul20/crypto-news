@@ -201,7 +201,7 @@ export default function BasicTable() {
               }}
             >
               {" "}
-              Add an article{" "}
+              <span className="buttontext"> Add a resource </span>
             </Button>
           </div>
 
@@ -235,7 +235,7 @@ export default function BasicTable() {
                   <div className="header"> Tags </div>
                 </TableCell>
                 <TableCell
-                  style={{ width: "10" }}
+                  style={{ width: "10%" }}
                   align="left"
                   className="header"
                 >
@@ -293,7 +293,13 @@ export default function BasicTable() {
                         alignItems: "center",
                       }}
                     >
-                      <span>{row.link}</span>
+                      <span
+                        style={{
+                          fontSize: "large",
+                        }}
+                      >
+                        {row.link}
+                      </span>
                       <div>
                         {upvotesData != null &&
                         upvotesData.includes(row.name) ? (
@@ -310,7 +316,7 @@ export default function BasicTable() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <a href={row.linking} className="icon">
+                    <a href={row.linking} target="_blank" className="icon">
                       {" "}
                       <OpenInNewIcon> </OpenInNewIcon>{" "}
                     </a>
