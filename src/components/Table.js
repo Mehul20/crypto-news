@@ -196,12 +196,21 @@ export default function BasicTable() {
               variant="outlined"
               className="buttonstyle"
               style={{
-                border: "1.5px solid",
-                borderColor: "#9f81db",
+                backgroundColor: "#5E5DEF",
+                borderRadius: "15px",
               }}
             >
               {" "}
-              <span className="buttontext"> Add a resource </span>
+              <span
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                {" "}
+                Add a resource{" "}
+              </span>
             </Button>
           </div>
 
