@@ -8,11 +8,10 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
-import "../styles/navbar.css";
-import { green } from "@mui/material/colors";
 import { UserContext, LoggedInEmailContext } from "../App";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
+import "../styles/navbar.css"
 
 export default function ButtonAppBar() {
   const navigate = useNavigate();
@@ -53,18 +52,40 @@ export default function ButtonAppBar() {
         <Toolbar>
           <Typography
             align="left"
-            variant="h6"
+            variant="h4"
+            fontWeight="bold"
             component="div"
             sx={{ flexGrow: 1 }}
+            className="typogra"
+
           >
             Converge
           </Typography>
           <div>
-            <Button color="inherit" onClick={navigateLogin} align="right">
-              Login
+            <Button onClick={navigateLogin}  align="right"
+          style={{
+            backgroundColor: "#5E5DEF",
+            borderRadius: "15px",
+            marginRight: "20px"
+          }}> 
+              <span style={{
+                color: "white",
+                fontSize: "15px",
+                fontWeight: "bold"
+               
+              }}> Login </span>
             </Button>
-            <Button color="inherit" onClick={navigateSignUp} align="right">
-              Signup
+            <Button onClick={navigateSignUp} align="right"
+            style={{
+              backgroundColor: "#5E5DEF",
+              borderRadius: "15px",
+            }}> 
+              <span style={{
+                color: "white",
+                fontSize: "15px",
+                fontWeight: "bold"
+               
+              }}> Sign up </span>
             </Button>
           </div>
         </Toolbar>

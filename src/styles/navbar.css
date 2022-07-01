@@ -1,8 +1,6 @@
-.buttonright {
-    align-items: right;
-    justify-content: right;
-}
-.background {
-    color: white;
-    flex-grow: 1;
+.typogra {
+    background: -webkit-linear-gradient(#B79CEC, #4604F8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
