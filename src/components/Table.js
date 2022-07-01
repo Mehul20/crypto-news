@@ -131,7 +131,6 @@ export default function BasicTable() {
       });
       loop();
       rendering();
-      onSelect();
       console.log(email);
     } else {
       console.log("exists");
@@ -202,7 +201,7 @@ export default function BasicTable() {
               }}
             >
               {" "}
-              <span
+               <span
                 style={{
                   color: "white",
                   fontSize: "15px",
@@ -212,6 +211,7 @@ export default function BasicTable() {
                 {" "}
                 Add a resource{" "}
               </span>
+
             </Button>
           </div>
 
@@ -326,7 +326,7 @@ export default function BasicTable() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <a href={row.linking} target="_blank" className="icon">
+                    <a href={row.linking} className="icon">
                       {" "}
                       <OpenInNewIcon> </OpenInNewIcon>{" "}
                     </a>

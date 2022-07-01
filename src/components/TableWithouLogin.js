@@ -5,7 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 import { db } from "../firebase-config";
@@ -117,21 +117,25 @@ export default function BasicTable() {
           <br /> Web3 news & resources
           <br /> on <span className="gradient-text"> Converge </span>
         </h1>
-        <Button style={{
-              backgroundColor: "#5E5DEF",
-              borderRadius: "15px",
-              marginBottom: "20px"
-            }} href="#waitlistsection"> 
-              
-              <span style={{
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "bold",
-                
-               
-              }}
-              > Join the Waitlist </span>
-            </Button>
+        <Button
+          style={{
+            backgroundColor: "#5E5DEF",
+            borderRadius: "15px",
+            marginBottom: "20px",
+          }}
+          href="#waitlistsection"
+        >
+          <span
+            style={{
+              color: "white",
+              fontSize: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            Join the Waitlist{" "}
+          </span>
+        </Button>
 
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
@@ -222,18 +226,18 @@ export default function BasicTable() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <a href={row.linking} target ="_blank" className="icon">
+                    <a href={row.linking} target="_blank" className="icon">
                       {" "}
                       <OpenInNewIcon> </OpenInNewIcon>{" "}
                     </a>
                   </TableCell>
-                  </StyledTableRow> 
+                </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         <div id="waitlistsection">
-        <Waitlist />
+          <Waitlist />
         </div>
       </div>
     </ThemeProvider>
