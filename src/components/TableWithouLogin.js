@@ -21,6 +21,7 @@ import { UserContext } from "../App";
 import { getDocs, collection, getDoc } from "firebase/firestore";
 import "../styles/table.css";
 import Waitlist from "./Waitlist";
+import Card1 from "./card"
 
 function createData(name, linking, source, link, desc) {
   return { name, linking, source, link, desc };
@@ -236,10 +237,17 @@ export default function BasicTable() {
             </TableBody>
           </Table>
         </TableContainer>
+        <div className = "cardsdiv">
+          <Card1 />
+          <Card1 />
+          <Card1 />
+        </div>
+        
         <div id="waitlistsection">
           <Waitlist />
         </div>
       </div>
+
     </ThemeProvider>
   );
 }

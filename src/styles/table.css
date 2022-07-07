@@ -60,3 +60,12 @@
 .joinwait {
   color: white;
 }
+
+.cardsdiv {
+  justify-content: space-between;
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
