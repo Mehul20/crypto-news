@@ -19,6 +19,7 @@ export default function ButtonAppBar() {
   const { email, setEmail } = useContext(UserContext);
   const { loggedInEmail, setLoggedInEmail } = useContext(LoggedInEmailContext);
   const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const navigateLogin = () => {
     // 👇️ navigate to /
     navigate("/login");
@@ -48,6 +49,9 @@ export default function ButtonAppBar() {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
       setName(docSnap.data().Name);
+      const split = docSnap.data().Name.split(" ");
+      const first = split[0];
+      setFirstName(first);
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
@@ -75,7 +79,7 @@ export default function ButtonAppBar() {
                 fontWeight: "bold",
               }}
             >
-              Hi, {name} 👋 {console.log(loggedInEmail)}
+              Hi, {firstName} 👋
               <Button
                 color="inherit"
                 onClick={signout}
